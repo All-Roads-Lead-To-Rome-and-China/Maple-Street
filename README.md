@@ -11,7 +11,7 @@ The following people contribute to this repository:
 - Kevin
 - Emmanuel
 - Evan
-- Thushan
+- 💕Thushan💕
 - Daniel
 
 ## How to use
