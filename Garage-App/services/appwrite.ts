@@ -10,4 +10,4 @@ export const storage = new Storage(client);
 export const functions = new Functions(client);
 
 //Database
-// export const PRIMARY_DATABASE_ID = "";
+export const CUSTOMER_INFO_DB = "customerInfo";
