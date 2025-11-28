@@ -11,3 +11,6 @@ export const functions = new Functions(client);
 
 //Database
 export const CUSTOMER_INFO_DB = "customerInfo";
+
+//Tables
+export const customerData = "customerdata";
