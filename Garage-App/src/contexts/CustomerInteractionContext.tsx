@@ -33,11 +33,16 @@ const CustomerInteractionProvider = ({
   const addCustomerToDatabase = async (customerInput: CustomerData) => {
     console.log("Sending data to Appwrite:", customerInput);
     try {
+      const modifiedData = {
+        ...customerInput,
+        customerId: ID.unique(),
+      };
+
       const response = await databases.createDocument(
         CUSTOMER_INFO_DB,
         customerData,
         ID.unique(),
-        customerInput
+        modifiedData
       );
       console.log("Appwrite success response:", response);
     } catch (error) {
