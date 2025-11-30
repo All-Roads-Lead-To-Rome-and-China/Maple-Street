@@ -115,7 +115,14 @@
           "encrypt": false
         }
       ],
-      "indexes": []
+      "indexes": [
+        {
+          "key": "idx_customerId",
+          "type": "key",
+          "status": "available",
+          "attributes": ["customerId"]
+        }
+      ]
     },
     {
       "$id": "bookings",
@@ -202,7 +209,20 @@
           "encrypt": false
         }
       ],
-      "indexes": []
+      "indexes": [
+        {
+          "key": "idx_customer",
+          "type": "key",
+          "status": "available",
+          "attributes": ["customerId"]
+        },
+        {
+          "key": "idx_mechanic",
+          "type": "key",
+          "status": "available",
+          "attributes": ["mechanicId"]
+        }
+      ]
     },
     {
       "$id": "mechanics",
@@ -275,7 +295,14 @@
           "array": false
         }
       ],
-      "indexes": []
+      "indexes": [
+        {
+          "key": "idx_mechanic",
+          "type": "key",
+          "status": "available",
+          "attributes": ["mechanicId"]
+        }
+      ]
     },
     {
       "$id": "inventory",
