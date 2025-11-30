@@ -34,7 +34,9 @@ interface InventoryContextType {
   updateStock: (itemId: string, newQuantity: number) => Promise<void>;
 }
 
-export const InventoryContext = createContext<InventoryContextType | null>(null);
+export const InventoryContext = createContext<InventoryContextType | null>(
+  null
+);
 
 export const InventoryProvider = ({
   children,
@@ -95,9 +97,10 @@ export const InventoryProvider = ({
   };
 
   return (
-    <InventoryContext.Provider value={{ getAllInventory, addItem, updateStock }}>
+    <InventoryContext.Provider
+      value={{ getAllInventory, addItem, updateStock }}
+    >
       {children}
     </InventoryContext.Provider>
   );
 };
-
