@@ -58,7 +58,21 @@ const CustomerProfile = () => {
         dateOfBirth,
       });
       setSuccess("Customer details updated successfully!");
-      setIsEditing(false); // go back to view mode
+      setIsEditing(false); // back to view mode
+      // Refresh the customer object to reflect latest values
+      setCustomer((prev: any) =>
+        prev
+          ? {
+              ...prev,
+              firstName,
+              lastName,
+              email,
+              phone,
+              dateOfBirth,
+              isActive,
+            }
+          : prev
+      );
     } catch (err) {
       console.error("Error updating customer:", err);
       setError("Failed to update customer.");
@@ -82,7 +96,7 @@ const CustomerProfile = () => {
         </button>
       </div>
 
-      {/* Step 2: Display Profile */}
+      {/* Step 2: Display Profile (View mode) */}
       {customer && !isEditing && (
         <div
           style={{
@@ -111,13 +125,23 @@ const CustomerProfile = () => {
             <strong>Active:</strong> {customer.isActive ? "Yes" : "No"}
           </p>
 
-          <button onClick={() => setIsEditing(true)}>Make Changes</button>
-          {/* ✅ Booking button always available when profile is loaded */}
-          <button
-            onClick={() => navigate(`/customer/${customer.customerId}/booking`)}
-          >
-            Book a Service
-          </button>
+          <div style={{ display: "flex", gap: "8px", marginTop: "12px" }}>
+            <button onClick={() => setIsEditing(true)}>Make Changes</button>
+            <button
+              onClick={() =>
+                navigate(`/customer/${customer.customerId}/booking`)
+              }
+            >
+              Book a Service
+            </button>
+            <button
+              onClick={() =>
+                navigate(`/customer/${customer.customerId}/bookings`)
+              }
+            >
+              View My Bookings
+            </button>
+          </div>
         </div>
       )}
 
@@ -178,15 +202,10 @@ const CustomerProfile = () => {
             </label>
           </div>
 
-          <button onClick={handleUpdate} style={{ marginTop: "12px" }}>
-            Save Changes
-          </button>
-          <button
-            onClick={() => setIsEditing(false)}
-            style={{ marginTop: "12px" }}
-          >
-            Cancel
-          </button>
+          <div style={{ display: "flex", gap: "8px", marginTop: "12px" }}>
+            <button onClick={handleUpdate}>Save Changes</button>
+            <button onClick={() => setIsEditing(false)}>Cancel</button>
+          </div>
         </div>
       )}
 
