@@ -13,6 +13,7 @@ The following people contribute to this repository:
 - Evan
 - 💕Thushan💕
 - Daniel
+  Test
 
 ## How to use
 
