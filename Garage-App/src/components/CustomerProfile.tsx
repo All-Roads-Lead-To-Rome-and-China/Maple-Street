@@ -35,7 +35,7 @@ const CustomerProfile = () => {
       setEmail(data.email || "");
       setPhone(data.phone || "");
       setDateOfBirth(data.dateOfBirth || "");
-      setIsActive(data.isActive ?? true);
+      // setIsActive(data.isActive ?? true);
     } catch (err) {
       console.error("Error fetching profile:", err);
       setError("Failed to fetch profile.");
@@ -54,7 +54,7 @@ const CustomerProfile = () => {
         email,
         phone,
         dateOfBirth,
-        isActive,
+        // isActive,
       });
       setSuccess("Customer details updated successfully!");
     } catch (err) {
