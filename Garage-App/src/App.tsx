@@ -1,18 +1,44 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Homepage from "./components/Homepage";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useParams,
+} from "react-router-dom";
+import HomePage from "./pages/Homepage";
+import CustomerPortal from "./pages/CustomerPortal";
 import CustomerRegistrationForm from "./components/CustomerRegistrationForm";
 import CustomerProfile from "./components/CustomerProfile";
 import CustomerList from "./components/CustomerList";
+import BookingForm from "./components/BookingForm";
+import BookingSuccess from "./components/BookingSuccess";
+
+// Wrapper to extract customerId from URL and pass to BookingForm
+const BookingFormWrapper = () => {
+  const { customerId } = useParams();
+  return <BookingForm customerId={customerId!} />;
+};
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Homepage />} />
+        {/* Homepage */}
+        <Route path="/" element={<HomePage />} />
 
         {/* Customer Journey */}
-        <Route path="/customer" element={<CustomerRegistrationForm />} />
+        <Route path="/customer" element={<CustomerPortal />} />
+        <Route
+          path="/customer/register"
+          element={<CustomerRegistrationForm />}
+        />
         <Route path="/customer/profile" element={<CustomerProfile />} />
+        <Route
+          path="/customer/:customerId/booking"
+          element={<BookingFormWrapper />}
+        />
+
+        {/* Booking Success */}
+        <Route path="/booking-success" element={<BookingSuccess />} />
 
         {/* Staff Journey */}
         <Route path="/staff" element={<CustomerList />} />
