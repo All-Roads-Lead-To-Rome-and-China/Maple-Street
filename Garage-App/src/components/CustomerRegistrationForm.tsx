@@ -1,10 +1,10 @@
 import { useState } from "react";
 import useCustomerInteraction from "../hooks/useCustomerInteraction";
-
-
+import { useNavigate } from "react-router-dom";
 
 const CustomerRegistrationForm = () => {
   const { addCustomerToDatabase } = useCustomerInteraction();
+  const navigate = useNavigate();
 
   // Form state
   const [firstName, setFirstName] = useState("");
@@ -12,10 +12,11 @@ const CustomerRegistrationForm = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
-  // const [isActive, setIsActive] = useState(true);
 
+  // Feedback + customerId state
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [customerId, setCustomerId] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,28 +30,28 @@ const CustomerRegistrationForm = () => {
     }
 
     try {
-      const customerId = "cust-" + Math.random().toString(36).substr(2, 9);
+      const newCustomerId = "cust-" + Math.random().toString(36).substr(2, 9);
 
       const dataToSend = {
-        customerId,
+        customerId: newCustomerId,
         firstName,
         lastName,
         email,
         phone: phone || undefined,
-        dateOfBirth: dateOfBirth || undefined,};
-        // isActive,
-      
+        dateOfBirth: dateOfBirth || undefined,
+      };
 
       await addCustomerToDatabase(dataToSend);
 
       setSuccess("Customer registered successfully!");
+      setCustomerId(newCustomerId); // ✅ store ID for later use
+
       // Reset form
       setFirstName("");
       setLastName("");
       setEmail("");
       setPhone("");
       setDateOfBirth("");
-      // setIsActive(true);
     } catch (err) {
       console.error("Failed to register customer:", err);
       setError("Registration failed. Please try again.");
@@ -105,20 +106,19 @@ const CustomerRegistrationForm = () => {
             onChange={(e) => setDateOfBirth(e.target.value)}
           />
         </div>
-        <div>
-          {/* <label>Active</label>
-          <input
-            type="checkbox"
-            checked={isActive}
-            onChange={(e) => setIsActive(e.target.checked)}
-          /> */}
-        </div>
         <button type="submit">Register Customer</button>
       </form>
 
       {/* ✅ Feedback messages */}
       {error && <p style={{ color: "red" }}>{error}</p>}
       {success && <p style={{ color: "green" }}>{success}</p>}
+
+      {/* ✅ Booking button only appears after success */}
+      {success && customerId && (
+        <button onClick={() => navigate(`/customer/${customerId}/booking`)}>
+          Book a Service
+        </button>
+      )}
     </div>
   );
 };
