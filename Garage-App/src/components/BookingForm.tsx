@@ -32,16 +32,16 @@ const BookingForm = ({ customerId }: { customerId: string }) => {
         vehicleModel,
         vehicleYear: vehicleYear ? Number(vehicleYear) : new Date().getFullYear(),
         serviceType,
-        bookingDate: `${bookingDate}T${bookingTime}:00`, // ISO string
+        bookingDate: `${bookingDate}T${bookingTime}:00`,
         notes: `Registration: ${registrationNumber}`,
         mechanicId: undefined,
       });
 
-      // ✅ Navigate to success page with booking details
+      // ✅ Include customerId in the success page URL
       navigate(
         `/booking-success?serviceType=${encodeURIComponent(serviceType)}&registrationNumber=${encodeURIComponent(
           registrationNumber
-        )}&bookingDate=${encodeURIComponent(bookingDate)}&bookingTime=${encodeURIComponent(bookingTime)}`
+        )}&bookingDate=${encodeURIComponent(bookingDate)}&bookingTime=${encodeURIComponent(bookingTime)}&customerId=${encodeURIComponent(customerId)}`
       );
     } catch (err) {
       console.error("Error creating booking:", err);
