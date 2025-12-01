@@ -10,6 +10,7 @@ const BookingSuccess = () => {
   const registrationNumber = params.get("registrationNumber");
   const bookingDate = params.get("bookingDate");
   const bookingTime = params.get("bookingTime");
+  const customerId = params.get("customerId"); // pass customerId too
 
   return (
     <div
@@ -25,9 +26,20 @@ const BookingSuccess = () => {
         A booking has been made for a <strong>{serviceType}</strong> for the
         vehicle <strong>{registrationNumber}</strong> on{" "}
         <strong>{bookingDate}</strong> at <strong>{bookingTime}</strong>.
+        <br></br>
+        <br></br>
+        You should recieve an email confirmation shortly. We look forward to seeing you soon!
       </p>
 
       <button onClick={() => navigate("/")}>Return to Home</button>
+      {customerId && (
+        <button
+          onClick={() => navigate(`/customer/${customerId}/bookings`)}
+          style={{ marginLeft: "10px" }}
+        >
+          View My Bookings
+        </button>
+      )}
     </div>
   );
 };
