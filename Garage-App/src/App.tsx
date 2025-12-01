@@ -1,5 +1,10 @@
-import { BrowserRouter as Router, Routes, Route, useParams } from "react-router-dom";
-import HomePage from "./pages/Homepage"
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useParams,
+} from "react-router-dom";
+import HomePage from "./pages/Homepage";
 import CustomerPortal from "./pages/CustomerPortal";
 import CustomerRegistrationForm from "./components/CustomerRegistrationForm";
 import CustomerProfile from "./components/CustomerProfile";
@@ -7,6 +12,8 @@ import CustomerList from "./components/CustomerList";
 import BookingForm from "./components/BookingForm";
 import BookingSuccess from "./components/BookingSuccess";
 import CustomerBookings from "./components/CustomerBookings";
+import StaffDashboard from "./pages/StaffDashboard";
+import InventoryList from "./components/InventoryList";
 
 // Wrapper to extract customerId from URL and pass to BookingForm
 const BookingFormWrapper = () => {
@@ -29,16 +36,46 @@ function App() {
 
         {/* Customer Journey */}
         <Route path="/customer" element={<CustomerPortal />} />
-        <Route path="/customer/register" element={<CustomerRegistrationForm />} />
+        <Route
+          path="/customer/register"
+          element={<CustomerRegistrationForm />}
+        />
         <Route path="/customer/profile" element={<CustomerProfile />} />
-        <Route path="/customer/:customerId/booking" element={<BookingFormWrapper />} />
-        <Route path="/customer/:customerId/bookings" element={<CustomerBookingsWrapper />} />
+        <Route
+          path="/customer/:customerId/booking"
+          element={<BookingFormWrapper />}
+        />
+        <Route
+          path="/customer/:customerId/bookings"
+          element={<CustomerBookingsWrapper />}
+        />
 
         {/* Booking Success */}
         <Route path="/booking-success" element={<BookingSuccess />} />
 
         {/* Staff Journey */}
-        <Route path="/staff" element={<CustomerList />} />
+        <Route path="/staff" element={<StaffDashboard />} />
+        <Route path="/staff/customers" element={<CustomerList />} />
+        <Route
+          path="/staff/appointments"
+          element={<div>Appointment Scheduling Component</div>}
+        />
+        <Route
+          path="/staff/inventory"
+          element={<InventoryList/>}
+        />
+        <Route
+          path="/staff/invoices"
+          element={<div>Invoices & Payments Component</div>}
+        />
+        <Route
+          path="/staff/scheduling"
+          element={<div>Staff Scheduling Component</div>}
+        />
+        <Route
+          path="/staff/compliance"
+          element={<div>Compliance & Safety Component</div>}
+        />
       </Routes>
     </Router>
   );
