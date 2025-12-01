@@ -1,6 +1,8 @@
 import { useState } from "react";
 import useCustomerInteraction from "../hooks/useCustomerInteraction";
 
+
+
 const CustomerRegistrationForm = () => {
   const { addCustomerToDatabase } = useCustomerInteraction();
 
@@ -10,7 +12,7 @@ const CustomerRegistrationForm = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
-  const [isActive, setIsActive] = useState(true);
+  // const [isActive, setIsActive] = useState(true);
 
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -35,9 +37,9 @@ const CustomerRegistrationForm = () => {
         lastName,
         email,
         phone: phone || undefined,
-        dateOfBirth: dateOfBirth || undefined,
-        isActive,
-      };
+        dateOfBirth: dateOfBirth || undefined,};
+        // isActive,
+      
 
       await addCustomerToDatabase(dataToSend);
 
@@ -48,7 +50,7 @@ const CustomerRegistrationForm = () => {
       setEmail("");
       setPhone("");
       setDateOfBirth("");
-      setIsActive(true);
+      // setIsActive(true);
     } catch (err) {
       console.error("Failed to register customer:", err);
       setError("Registration failed. Please try again.");
@@ -104,12 +106,12 @@ const CustomerRegistrationForm = () => {
           />
         </div>
         <div>
-          <label>Active</label>
+          {/* <label>Active</label>
           <input
             type="checkbox"
             checked={isActive}
             onChange={(e) => setIsActive(e.target.checked)}
-          />
+          /> */}
         </div>
         <button type="submit">Register Customer</button>
       </form>
