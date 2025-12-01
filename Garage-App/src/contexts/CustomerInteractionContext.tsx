@@ -13,7 +13,6 @@ export interface CustomerData {
   email: string;
   phone?: string;
   dateOfBirth?: string;
-  isActive: boolean;
   $id?: string; // Appwrite Document ID
 }
 
