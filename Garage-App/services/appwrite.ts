@@ -11,6 +11,12 @@ export const functions = new Functions(client);
 
 //Database
 export const CUSTOMER_INFO_DB = "customerInfo";
+export const GARAGE_OPERATIONS_DB = "garageOperations";
+export const STAFF_MANAGEMENT_DB = "staffManagement";
 
 //Tables
 export const customerData = "customerdata";
+export const BOOKINGS_COLLECTION = "bookings";
+export const MECHANICS_COLLECTION = "mechanics";
+export const SHIFTS_COLLECTION = "shifts";
+export const INVENTORY_COLLECTION = "inventory";

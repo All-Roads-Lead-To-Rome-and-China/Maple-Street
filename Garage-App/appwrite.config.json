@@ -1,121 +1,350 @@
 {
-    "projectId": "69244b2a0021eef00161",
-    "endpoint": "https://fra.cloud.appwrite.io/v1",
-    "projectName": "Advanced Software Engineering - Garage Tech Solution",
-    "settings": {
-        "services": {
-            "account": true,
-            "avatars": true,
-            "databases": true,
-            "locale": true,
-            "health": true,
-            "storage": true,
-            "teams": true,
-            "users": true,
-            "sites": true,
-            "functions": true,
-            "graphql": true,
-            "messaging": true
-        },
-        "auth": {
-            "methods": {
-                "jwt": true,
-                "phone": true,
-                "invites": true,
-                "anonymous": true,
-                "email-otp": true,
-                "magic-url": true,
-                "email-password": true
-            },
-            "security": {
-                "duration": 31536000,
-                "limit": 0,
-                "sessionsLimit": 10,
-                "passwordHistory": 0,
-                "passwordDictionary": false,
-                "personalDataCheck": false,
-                "sessionAlerts": false,
-                "mockNumbers": []
-            }
-        }
+  "projectId": "69244b2a0021eef00161",
+  "endpoint": "https://fra.cloud.appwrite.io/v1",
+  "projectName": "Advanced Software Engineering - Garage Tech Solution",
+  "settings": {
+    "services": {
+      "account": true,
+      "avatars": true,
+      "databases": true,
+      "locale": true,
+      "health": true,
+      "storage": true,
+      "teams": true,
+      "users": true,
+      "sites": true,
+      "functions": true,
+      "graphql": true,
+      "messaging": true
     },
-    "tablesDB": [
+    "auth": {
+      "methods": {
+        "jwt": true,
+        "phone": true,
+        "invites": true,
+        "anonymous": true,
+        "email-otp": true,
+        "magic-url": true,
+        "email-password": true
+      },
+      "security": {
+        "duration": 31536000,
+        "limit": 0,
+        "sessionsLimit": 10,
+        "passwordHistory": 0,
+        "passwordDictionary": false,
+        "personalDataCheck": false,
+        "sessionAlerts": false,
+        "mockNumbers": []
+      }
+    }
+  },
+  "tablesDB": [
+    {
+      "$id": "customerInfo",
+      "name": "Customer information",
+      "enabled": true
+    },
+    {
+      "$id": "garageOperations",
+      "name": "Garage Operations",
+      "enabled": true
+    },
+    {
+      "$id": "staffManagement",
+      "name": "Staff Management",
+      "enabled": true
+    }
+  ],
+  "tables": [
+    {
+      "$id": "customerdata",
+      "$permissions": ["create(\"any\")"],
+      "databaseId": "customerInfo",
+      "name": "customerData",
+      "enabled": true,
+      "rowSecurity": false,
+      "columns": [
         {
-            "$id": "customerInfo",
-            "name": "Customer information",
-            "enabled": true
-        }
-    ],
-    "tables": [
+          "key": "firstName",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 64,
+          "encrypt": false
+        },
         {
-            "$id": "customerdata",
-            "$permissions": [],
-            "databaseId": "customerInfo",
-            "name": "customerData",
-            "enabled": true,
-            "rowSecurity": false,
-            "columns": [
-                {
-                    "key": "customerId",
-                    "type": "string",
-                    "required": true,
-                    "array": false,
-                    "size": 36,
-                    "default": null,
-                    "encrypt": false
-                },
-                {
-                    "key": "firstName",
-                    "type": "string",
-                    "required": true,
-                    "array": false,
-                    "size": 64,
-                    "default": null,
-                    "encrypt": false
-                },
-                {
-                    "key": "lastName",
-                    "type": "string",
-                    "required": true,
-                    "array": false,
-                    "size": 64,
-                    "default": null,
-                    "encrypt": false
-                },
-                {
-                    "key": "email",
-                    "type": "string",
-                    "required": true,
-                    "array": false,
-                    "format": "email",
-                    "default": null
-                },
-                {
-                    "key": "phone",
-                    "type": "string",
-                    "required": false,
-                    "array": false,
-                    "size": 15,
-                    "default": null,
-                    "encrypt": false
-                },
-                {
-                    "key": "dateOfBirth",
-                    "type": "datetime",
-                    "required": false,
-                    "array": false,
-                    "format": "",
-                    "default": null
-                },
-                {
-                    "key": "isActive",
-                    "type": "boolean",
-                    "required": true,
-                    "array": false,
-                    "default": null
-                }
-            ],
-            "indexes": []
+          "key": "lastName",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 64,
+          "encrypt": false
+        },
+        {
+          "key": "email",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "format": "email"
+        },
+        {
+          "key": "phone",
+          "type": "string",
+          "required": false,
+          "array": false,
+          "size": 15,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "dateOfBirth",
+          "type": "datetime",
+          "required": false,
+          "array": false,
+          "format": "",
+          "default": null
+        },
+        {
+          "key": "customerId",
+          "type": "string",
+          "required": false,
+          "array": false,
+          "size": 36,
+          "default": null,
+          "encrypt": false
         }
-    ]
+      ],
+      "indexes": [
+        {
+          "key": "idx_customerId",
+          "type": "key",
+          "status": "available",
+          "attributes": ["customerId"]
+        }
+      ]
+    },
+    {
+      "$id": "bookings",
+      "$permissions": [
+        "create(\"any\")",
+        "read(\"any\")",
+        "update(\"any\")",
+        "delete(\"any\")"
+      ],
+      "databaseId": "garageOperations",
+      "name": "Bookings",
+      "enabled": true,
+      "rowSecurity": false,
+      "columns": [
+        {
+          "key": "customerId",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 36,
+          "encrypt": false
+        },
+        {
+          "key": "mechanicId",
+          "type": "string",
+          "required": false,
+          "array": false,
+          "size": 36,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "vehicleMake",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 50,
+          "encrypt": false
+        },
+        {
+          "key": "vehicleModel",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 50,
+          "encrypt": false
+        },
+        {
+          "key": "vehicleYear",
+          "type": "integer",
+          "required": true,
+          "array": false
+        },
+        {
+          "key": "serviceType",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 100,
+          "encrypt": false
+        },
+        {
+          "key": "bookingDate",
+          "type": "datetime",
+          "required": true,
+          "array": false
+        },
+        {
+          "key": "status",
+          "type": "string",
+          "required": false,
+          "array": false,
+          "size": 20,
+          "default": "Pending",
+          "encrypt": false
+        },
+        {
+          "key": "notes",
+          "type": "string",
+          "required": false,
+          "array": false,
+          "size": 1000,
+          "default": null,
+          "encrypt": false
+        }
+      ],
+      "indexes": [
+        {
+          "key": "idx_customer",
+          "type": "key",
+          "status": "available",
+          "attributes": ["customerId"]
+        },
+        {
+          "key": "idx_mechanic",
+          "type": "key",
+          "status": "available",
+          "attributes": ["mechanicId"]
+        }
+      ]
+    },
+    {
+      "$id": "mechanics",
+      "$permissions": ["read(\"any\")"],
+      "databaseId": "staffManagement",
+      "name": "Mechanics",
+      "enabled": true,
+      "rowSecurity": false,
+      "columns": [
+        {
+          "key": "name",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 128,
+          "encrypt": false
+        },
+        {
+          "key": "email",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "format": "email"
+        },
+        {
+          "key": "specialization",
+          "type": "string",
+          "required": false,
+          "array": false,
+          "size": 128,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "isActive",
+          "type": "boolean",
+          "required": false,
+          "array": false,
+          "default": true
+        }
+      ],
+      "indexes": []
+    },
+    {
+      "$id": "shifts",
+      "$permissions": ["read(\"any\")"],
+      "databaseId": "staffManagement",
+      "name": "Shifts",
+      "enabled": true,
+      "rowSecurity": false,
+      "columns": [
+        {
+          "key": "mechanicId",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 36,
+          "encrypt": false
+        },
+        {
+          "key": "startTime",
+          "type": "datetime",
+          "required": true,
+          "array": false
+        },
+        {
+          "key": "endTime",
+          "type": "datetime",
+          "required": true,
+          "array": false
+        }
+      ],
+      "indexes": [
+        {
+          "key": "idx_mechanic",
+          "type": "key",
+          "status": "available",
+          "attributes": ["mechanicId"]
+        }
+      ]
+    },
+    {
+      "$id": "inventory",
+      "$permissions": ["read(\"any\")"],
+      "databaseId": "garageOperations",
+      "name": "Inventory",
+      "enabled": true,
+      "rowSecurity": false,
+      "columns": [
+        {
+          "key": "itemName",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 128,
+          "encrypt": false
+        },
+        {
+          "key": "quantity",
+          "type": "integer",
+          "required": false,
+          "array": false,
+          "default": 0
+        },
+        {
+          "key": "price",
+          "type": "double",
+          "required": false,
+          "array": false,
+          "default": 0.0
+        },
+        {
+          "key": "description",
+          "type": "string",
+          "required": false,
+          "array": false,
+          "size": 500,
+          "default": null,
+          "encrypt": false
+        }
+      ],
+      "indexes": []
+    }
+  ]
 }
