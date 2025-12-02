@@ -4,7 +4,7 @@ import {
   Route,
   useParams,
 } from "react-router-dom";
-import HomePage from "./pages/Homepage";
+import HomePage from "./pages/HomePage";
 import CustomerPortal from "./pages/CustomerPortal";
 import CustomerRegistrationForm from "./components/CustomerRegistrationForm";
 import CustomerProfile from "./components/CustomerProfile";
@@ -13,6 +13,7 @@ import BookingForm from "./components/BookingForm";
 import BookingSuccess from "./components/BookingSuccess";
 import CustomerBookings from "./components/CustomerBookings";
 import StaffDashboard from "./pages/StaffDashboard";
+import StaffLogin from "./pages/StaffLogin";
 import InventoryList from "./components/InventoryList";
 
 // Wrapper to extract customerId from URL and pass to BookingForm
@@ -54,6 +55,7 @@ function App() {
         <Route path="/booking-success" element={<BookingSuccess />} />
 
         {/* Staff Journey */}
+        <Route path="/staff/login" element={<StaffLogin />} />
         <Route path="/staff" element={<StaffDashboard />} />
         <Route path="/staff/customers" element={<CustomerList />} />
         <Route
@@ -62,7 +64,7 @@ function App() {
         />
         <Route
           path="/staff/inventory"
-          element={<InventoryList/>}
+          element={<InventoryList />}
         />
         <Route
           path="/staff/invoices"
