@@ -2,6 +2,8 @@ import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { StaffContext, type MechanicData } from "../contexts/StaffContext";
 import { BookingContext, type BookingData } from "../contexts/BookingContext";
+import CustomerList from "../components/CustomerList";
+import InventoryList from "../components/InventoryList";
 
 const StaffDashboard = () => {
   const navigate = useNavigate();
@@ -44,6 +46,15 @@ const StaffDashboard = () => {
                   {bookings.filter(b => new Date(b.bookingDate).toDateString() === new Date().toDateString()).length}
                 </p>
               </div>
+            </div>
+          </div>
+        );
+      case "customers":
+        return (
+          <div>
+            <h2 style={{ marginBottom: "1.5rem", color: "var(--primary-color)" }}>Customer Records</h2>
+            <div className="glass-panel" style={{ padding: "1.5rem" }}>
+              <CustomerList />
             </div>
           </div>
         );
@@ -128,6 +139,15 @@ const StaffDashboard = () => {
             </div>
           </div>
         );
+      case "inventory":
+        return (
+          <div>
+            <h2 style={{ marginBottom: "1.5rem", color: "var(--primary-color)" }}>Inventory Management</h2>
+            <div className="glass-panel" style={{ padding: "1.5rem" }}>
+              <InventoryList />
+            </div>
+          </div>
+        );
       case "invoices":
         return (
           <div>
@@ -180,8 +200,10 @@ const StaffDashboard = () => {
         <nav style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
           {[
             { id: "overview", label: "Overview" },
+            { id: "customers", label: "Customer Records" },
             { id: "staff-scheduling", label: "Staff Scheduling" },
             { id: "appointments", label: "Appointments" },
+            { id: "inventory", label: "Inventory Management" },
             { id: "invoices", label: "Invoices & Payments" },
             { id: "compliance", label: "Compliance & Safety" },
           ].map((item) => (
