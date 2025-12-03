@@ -13,6 +13,7 @@ export interface CustomerData {
   email: string;
   phone?: string;
   dateOfBirth?: string;
+  // isActive: boolean;
   $id?: string; // Appwrite Document ID
 }
 
@@ -30,6 +31,12 @@ interface CustomerInteractionContextType {
    * Returns null if the customer is not found.
    */
   getCustomerByCustomerId: (customerId: string) => Promise<CustomerData | null>;
+
+  /**
+   * Retrieves all customers from the database.
+   * Returns an empty array if no customers are found or on error.
+   */
+  getAllCustomers: () => Promise<CustomerData[]>;
 
   /**
    * Updates an existing customer's information.
@@ -104,6 +111,24 @@ const CustomerInteractionProvider = ({
   };
 
   /**
+   * Retrieves all customers from the database.
+   * Returns an empty array if none are found or on error.
+   */
+  const getAllCustomers = async (): Promise<CustomerData[]> => {
+    try {
+      const response = await databases.listDocuments(
+        CUSTOMER_INFO_DB,
+        customerData
+      );
+
+      return response.documents as unknown as CustomerData[];
+    } catch (error) {
+      console.error("Error fetching all customers:", error);
+      return [];
+    }
+  };
+
+  /**
    * Updates an existing customer's information.
    * Use this when a user edits their profile.
    * Only updates the fields provided in the object.
@@ -127,7 +152,12 @@ const CustomerInteractionProvider = ({
 
   return (
     <CustomerInteractionContext.Provider
-      value={{ addCustomerToDatabase, getCustomerByCustomerId, updateCustomer }}
+      value={{
+        addCustomerToDatabase,
+        getCustomerByCustomerId,
+        getAllCustomers,
+        updateCustomer,
+      }}
     >
       {children}
     </CustomerInteractionContext.Provider>
