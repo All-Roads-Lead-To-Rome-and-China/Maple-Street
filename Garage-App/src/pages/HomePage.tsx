@@ -1,10 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import autoRepairImg from "../assets/auto_repair.png";
-import mkuEntranceImg from "../assets/mku_entrance.png";
 
-// Fix for default marker icon in Leaflet with Vite/Webpack
+// Images
+import heroImg from "../assets/hero_maple_street.png";
+import oilImg from "../assets/service_oil_change.png";
+import brakesImg from "../assets/service_brakes.png";
+import tiresImg from "../assets/service_tires.png";
+import engineImg from "../assets/service_engine.png";
+
+// Fix for default marker icon in React Leaflet
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 
@@ -19,203 +25,198 @@ L.Marker.prototype.options.icon = DefaultIcon;
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const position: [number, number] = [52.041300, -0.755830]; // MKU University Bouverie House
+
+  const services = [
+    { title: "Oil Change", img: oilImg, desc: "Premium synthetic and conventional oil changes." },
+    { title: "Brake Service", img: brakesImg, desc: "Expert brake inspections and replacements." },
+    { title: "Tire Rotation", img: tiresImg, desc: "Extend the life of your tires with regular rotation." },
+    { title: "Engine Diagnostics", img: engineImg, desc: "Advanced computer diagnostics for all makes." },
+    { title: "Suspension", icon: "🚙", desc: "Smooth out your ride with suspension repairs." },
+    { title: "Battery Service", icon: "🔋", desc: "Testing and replacement of car batteries." },
+  ];
 
   return (
-    <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
-      {/* Header */}
-      <header className="glass-panel" style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        padding: "1rem 2rem",
-        zIndex: 1000,
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        margin: "1rem",
-        borderRadius: "1rem"
-      }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-          <div style={{
-            width: "40px",
-            height: "40px",
-            background: "var(--primary-color)",
-            borderRadius: "8px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "white",
-            fontWeight: "bold",
-            fontSize: "1.2rem"
-          }}>M</div>
-          <span style={{ fontWeight: "bold", fontSize: "1.25rem", color: "var(--text-primary)" }}>Maple Street Auto</span>
-        </div>
-        <button
-          className="btn btn-secondary"
-          onClick={() => navigate("/staff/login")}
-        >
-          Staff Login
-        </button>
-      </header>
+    <div className="page-container" style={{ padding: 0, maxWidth: "100%" }}>
 
       {/* Hero Section */}
       <section style={{
         position: "relative",
-        minHeight: "80vh",
+        height: "80vh",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        padding: "8rem 1rem 4rem",
-        textAlign: "center",
-        color: "white",
-        overflow: "hidden"
+        overflow: "hidden",
+        background: "linear-gradient(135deg, #1e293b 0%, #0f172a 100%)",
+        color: "white"
       }}>
-        {/* Background Image */}
         <div style={{
           position: "absolute",
           top: 0,
           left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundImage: `url(${autoRepairImg})`,
+          width: "100%",
+          height: "100%",
+          opacity: 0.6,
+          backgroundImage: `url(${heroImg})`,
           backgroundSize: "cover",
-          backgroundPosition: "center",
-          zIndex: -1
-        }} />
-        {/* Overlay */}
-        <div style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: "rgba(0, 0, 0, 0.6)",
-          zIndex: -1
+          backgroundPosition: "center"
         }} />
 
-        <div className="container" style={{ position: "relative", zIndex: 1 }}>
-          <h1 style={{
-            fontSize: "4rem",
-            marginBottom: "1.5rem",
-            color: "white",
-            textShadow: "0 2px 4px rgba(0,0,0,0.3)"
-          }}>
-            Premium Auto Care,<br />Simplified.
+        <div style={{ position: "relative", zIndex: 10, textAlign: "center", padding: "2rem", maxWidth: "800px", background: "rgba(0,0,0,0.5)", borderRadius: "1rem", backdropFilter: "blur(5px)" }}>
+          <h1 style={{ fontSize: "4rem", fontWeight: "800", marginBottom: "1.5rem", lineHeight: 1.1, textShadow: "0 4px 6px rgba(0,0,0,0.5)", color: "white" }}>
+            Expert Care for <br /> <span style={{ color: "var(--accent-color)" }}>Your Vehicle</span>
           </h1>
-          <p style={{
-            fontSize: "1.25rem",
-            color: "rgba(255, 255, 255, 0.9)",
-            maxWidth: "600px",
-            margin: "0 auto 2.5rem"
-          }}>
-            Experience hassle-free car maintenance with our expert mechanics.
-            Book your appointment online in minutes.
+          <p style={{ fontSize: "1.25rem", marginBottom: "2.5rem", color: "#e2e8f0", maxWidth: "600px", margin: "0 auto 2.5rem" }}>
+            Professional auto repair and maintenance services you can trust.
+            Book your appointment online today.
           </p>
           <div style={{ display: "flex", gap: "1rem", justifyContent: "center" }}>
             <button
               className="btn btn-primary"
-              style={{ fontSize: "1.1rem", padding: "1rem 2rem" }}
-              onClick={() => navigate("/customer")}
+              style={{ padding: "1rem 2rem", fontSize: "1.1rem" }}
+              onClick={() => navigate("/customer/register")}
             >
-              Book Appointment
+              Book Now
             </button>
             <button
               className="btn btn-outline"
-              style={{ fontSize: "1.1rem", padding: "1rem 2rem" }}
-              onClick={() => navigate("/customer/profile")}
+              style={{ padding: "1rem 2rem", fontSize: "1.1rem" }}
+              onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })}
             >
-              Check Status
+              View Services
             </button>
           </div>
         </div>
       </section>
 
-      {/* Features/Services Preview */}
-      <section style={{ padding: "4rem 1rem", background: "white" }}>
+      {/* Services Grid */}
+      <section id="services" style={{ padding: "5rem 2rem", background: "#f8fafc" }}>
         <div className="container">
-          <h2 className="text-center" style={{ marginBottom: "3rem" }}>Why Choose Us</h2>
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-            gap: "2rem"
-          }}>
-            {[
-              { title: "Expert Mechanics", desc: "Certified professionals with years of experience." },
-              { title: "Transparent Pricing", desc: "No hidden fees. You approve every repair." },
-              { title: "Quick Turnaround", desc: "We respect your time and get you back on the road fast." }
-            ].map((feature, idx) => (
-              <div key={idx} style={{
-                padding: "2rem",
-                borderRadius: "1rem",
-                background: "var(--background-color)",
-                border: "1px solid #e2e8f0",
-                boxShadow: "var(--shadow-sm)"
-              }}>
-                <h3 style={{ marginBottom: "1rem", color: "var(--primary-color)" }}>{feature.title}</h3>
-                <p style={{ color: "var(--text-secondary)" }}>{feature.desc}</p>
+          <div style={{ textAlign: "center", marginBottom: "4rem" }}>
+            <h2 style={{ fontSize: "2.5rem", color: "var(--text-primary)", marginBottom: "1rem" }}>Our Services</h2>
+            <p style={{ color: "var(--text-secondary)", fontSize: "1.1rem" }}>Comprehensive maintenance and repair solutions.</p>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "2rem" }}>
+            {services.map((s, i) => (
+              <div key={i} className="glass-panel" style={{ padding: "0", textAlign: "center", transition: "transform 0.2s", overflow: "hidden", display: "flex", flexDirection: "column" }} onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-5px)"} onMouseLeave={(e) => e.currentTarget.style.transform = "translateY(0)"}>
+                <div style={{ height: "200px", background: "#e2e8f0", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+                  {s.img ? (
+                    <img src={s.img} alt={s.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  ) : (
+                    <div style={{ fontSize: "4rem" }}>{s.icon}</div>
+                  )}
+                </div>
+                <div style={{ padding: "1.5rem" }}>
+                  <h3 style={{ marginBottom: "0.5rem", color: "var(--text-primary)" }}>{s.title}</h3>
+                  <p style={{ color: "var(--text-secondary)" }}>{s.desc}</p>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Map Section */}
-      <section style={{ padding: "4rem 1rem", background: "#f8fafc" }}>
-        <div className="container">
-          <h2 className="text-center" style={{ marginBottom: "2rem" }}>Visit Us</h2>
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "2rem",
-            alignItems: "center"
-          }}>
-            <div style={{
-              height: "400px",
-              borderRadius: "1rem",
-              overflow: "hidden",
-              boxShadow: "var(--shadow-md)",
-              border: "1px solid #e2e8f0"
-            }}>
-              <MapContainer
-                center={position}
-                zoom={15}
-                scrollWheelZoom={false}
-                style={{ height: "100%", width: "100%" }}
-              >
-                <TileLayer
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                <Marker position={position}>
-                  <Popup>
-                    MKU University<br />
-                    Bouverie House, 200 Silbury Blvd<br />
-                    Milton Keynes MK9 1LT
-                  </Popup>
-                </Marker>
-              </MapContainer>
+      {/* Why Choose Us */}
+      <section style={{ padding: "5rem 2rem", background: "white" }}>
+        <div className="container" style={{ display: "flex", alignItems: "center", gap: "4rem", flexWrap: "wrap" }}>
+          <div style={{ flex: 1, minWidth: "300px" }}>
+            <h2 style={{ fontSize: "2.5rem", marginBottom: "1.5rem", color: "var(--text-primary)" }}>Why Choose Us?</h2>
+            <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+              {[
+                { title: "Certified Mechanics", desc: "Our team consists of ASE certified professionals." },
+                { title: "Transparent Pricing", desc: "No hidden fees. We provide upfront estimates." },
+                { title: "Quality Parts", desc: "We use only high-quality OEM or equivalent parts." },
+                { title: "Fast Turnaround", desc: "We respect your time and aim for quick service." }
+              ].map((item, i) => (
+                <div key={i} style={{ display: "flex", gap: "1rem" }}>
+                  <div style={{ color: "var(--success-color)", fontSize: "1.25rem" }}>✓</div>
+                  <div>
+                    <h4 style={{ marginBottom: "0.25rem" }}>{item.title}</h4>
+                    <p style={{ color: "var(--text-secondary)", fontSize: "0.9rem" }}>{item.desc}</p>
+                  </div>
+                </div>
+              ))}
             </div>
-            <div>
-              <img
-                src={mkuEntranceImg}
-                alt="MKU Entrance"
-                style={{
-                  width: "100%",
-                  height: "400px",
-                  objectFit: "cover",
-                  borderRadius: "1rem",
-                  boxShadow: "var(--shadow-md)"
-                }}
-              />
-              <p className="text-center" style={{ marginTop: "1rem", color: "var(--text-secondary)" }}>
-                Bouverie House, 200 Silbury Blvd, Milton Keynes MK9 1LT
-              </p>
+          </div>
+          <div style={{ flex: 1, minWidth: "300px", height: "400px", background: "#f1f5f9", borderRadius: "1rem", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ textAlign: "center", color: "var(--text-secondary)" }}>
+              <div style={{ fontSize: "4rem", marginBottom: "1rem" }}>🏆</div>
+              <h3>Award Winning Service</h3>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Visit Us (Map Only) */}
+      <section style={{ padding: "5rem 2rem", background: "#f8fafc" }}>
+        <div className="container">
+          <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+            <h2 style={{ fontSize: "2.5rem", marginBottom: "1rem" }}>Visit Us</h2>
+            <p style={{ color: "var(--text-secondary)", fontSize: "1.1rem" }}>Conveniently located at MKU Boulevard, Milton Keynes.</p>
+          </div>
+
+          <div style={{ height: "450px", borderRadius: "1rem", overflow: "hidden", boxShadow: "var(--shadow-lg)", border: "4px solid white" }}>
+            <MapContainer
+              center={[52.041, -0.758]}
+              zoom={15}
+              style={{ height: "100%", width: "100%" }}
+            >
+              <TileLayer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              />
+              <Marker position={[52.041, -0.758]}>
+                <Popup>
+                  Maple Street Auto Repairs <br /> MKU Boulevard, Milton Keynes
+                </Popup>
+              </Marker>
+            </MapContainer>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer style={{ background: "#1e293b", color: "white", padding: "4rem 2rem 2rem" }}>
+        <div className="container">
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "3rem", marginBottom: "3rem" }}>
+
+            {/* Brand */}
+            <div>
+              <h3 style={{ fontSize: "1.5rem", marginBottom: "1rem", color: "white" }}>Maple Street Auto</h3>
+              <p style={{ color: "#94a3b8", lineHeight: "1.6" }}>
+                Your trusted partner for all automotive needs. Quality service, every time.
+              </p>
+            </div>
+
+            {/* Contact */}
+            <div>
+              <h4 style={{ fontSize: "1.1rem", marginBottom: "1rem", color: "white" }}>Contact Us</h4>
+              <ul style={{ listStyle: "none", padding: 0, color: "#94a3b8", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                <li>📍 MKU Boulevard, Milton Keynes</li>
+                <li>📞 (01908) 555-555</li>
+                <li>✉️ info@maplestreetauto.com</li>
+                <li>⏰ Mon-Fri: 8am - 6pm</li>
+              </ul>
+            </div>
+
+            {/* Links */}
+            <div>
+              <h4 style={{ fontSize: "1.1rem", marginBottom: "1rem", color: "white" }}>Quick Links</h4>
+              <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                <li><a href="#" style={{ color: "#94a3b8", textDecoration: "none" }}>About Us</a></li>
+                <li><a href="#" style={{ color: "#94a3b8", textDecoration: "none" }}>Services</a></li>
+                <li><a href="/staff/login" style={{ color: "#94a3b8", textDecoration: "none" }}>Staff Portal</a></li>
+                <li><a href="/customer/register" style={{ color: "#94a3b8", textDecoration: "none" }}>Book Appointment</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div style={{ borderTop: "1px solid #334155", paddingTop: "2rem", textAlign: "center", color: "#64748b", fontSize: "0.9rem" }}>
+            &copy; {new Date().getFullYear()} Maple Street Auto Repairs. All rights reserved.
+          </div>
+        </div>
+      </footer>
+
     </div>
   );
 };
