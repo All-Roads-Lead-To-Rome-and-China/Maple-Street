@@ -4,11 +4,7 @@ import {
   Route,
   useParams,
 } from "react-router-dom";
-<<<<<<< HEAD
 import HomePage from "./pages/HomePage";
-=======
-import HomePage from "./pages/HomePage"
->>>>>>> origin/FE
 import CustomerPortal from "./pages/CustomerPortal";
 import CustomerRegistrationForm from "./components/CustomerRegistrationForm";
 import CustomerProfile from "./components/CustomerProfile";
@@ -64,19 +60,8 @@ function App() {
         <Route path="/staff/login" element={<StaffLogin />} />
         <Route path="/staff" element={<StaffDashboard />} />
         <Route path="/staff/customers" element={<CustomerList />} />
-<<<<<<< HEAD
-        <Route
-          path="/staff/appointments"
-          element={<div>Appointment Scheduling Component</div>}
-        />
-        <Route
-          path="/staff/inventory"
-          element={<InventoryList />}
-        />
-=======
         <Route path="/staff/appointments" element={<AppointmentScheduling />} />
         <Route path="/staff/inventory" element={<InventoryList />} />
->>>>>>> origin/FE
         <Route
           path="/staff/invoices"
           element={<div>Invoices & Payments Component</div>}
