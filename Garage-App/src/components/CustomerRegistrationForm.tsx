@@ -29,6 +29,36 @@ const CustomerRegistrationForm = () => {
       return;
     }
 
+    // Phone validation
+    if (phone && phone.replace(/\D/g, "").length < 10) {
+      setError("Phone number must be at least 10 digits.");
+      return;
+    }
+
+    // Age validation
+    if (dateOfBirth) {
+      const dob = new Date(dateOfBirth);
+      const today = new Date();
+
+      // Check if date is in the future
+      if (dob > today) {
+        setError("Date of birth cannot be in the future.");
+        return;
+      }
+
+      // Check if user is at least 18
+      let age = today.getFullYear() - dob.getFullYear();
+      const m = today.getMonth() - dob.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+        age--;
+      }
+
+      if (age < 18) {
+        setError("You must be at least 18 years old to register.");
+        return;
+      }
+    }
+
     try {
       const newCustomerId = "cust-" + Math.random().toString(36).substr(2, 9);
 
@@ -59,66 +89,111 @@ const CustomerRegistrationForm = () => {
   };
 
   return (
-    <div style={{ maxWidth: "500px", margin: "0 auto", textAlign: "left" }}>
-      <h2>Customer Registration</h2>
-      <form
-        onSubmit={handleSubmit}
-        style={{ display: "flex", flexDirection: "column", gap: "12px" }}
-      >
-        <div>
-          <label>First Name *</label>
-          <input
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            placeholder="First Name"
-          />
-        </div>
-        <div>
-          <label>Last Name</label>
-          <input
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            placeholder="Last Name"
-          />
-        </div>
-        <div>
-          <label>Email *</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
-          />
-        </div>
-        <div>
-          <label>Phone</label>
-          <input
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            placeholder="Phone"
-          />
-        </div>
-        <div>
-          <label>Date of Birth</label>
-          <input
-            type="date"
-            value={dateOfBirth}
-            onChange={(e) => setDateOfBirth(e.target.value)}
-          />
-        </div>
-        <button type="submit">Register Customer</button>
-      </form>
+    <div className="page-container" style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "80vh" }}>
+      <div className="glass-panel" style={{ width: "100%", maxWidth: "500px", padding: "2.5rem" }}>
+        <h2 style={{ marginBottom: "1.5rem", color: "var(--primary-color)", textAlign: "center" }}>Customer Registration</h2>
 
-      {/* ✅ Feedback messages */}
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {success && <p style={{ color: "green" }}>{success}</p>}
+        {!success ? (
+          <form
+            onSubmit={handleSubmit}
+            style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}
+          >
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+              <div>
+                <label style={{ display: "block", marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "500" }}>First Name *</label>
+                <input
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  placeholder="John"
+                  style={{ width: "100%", padding: "0.75rem", borderRadius: "0.5rem", border: "1px solid #cbd5e1", background: "rgba(255,255,255,0.8)" }}
+                />
+              </div>
+              <div>
+                <label style={{ display: "block", marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "500" }}>Last Name</label>
+                <input
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  placeholder="Doe"
+                  style={{ width: "100%", padding: "0.75rem", borderRadius: "0.5rem", border: "1px solid #cbd5e1", background: "rgba(255,255,255,0.8)" }}
+                />
+              </div>
+            </div>
 
-      {/* ✅ Booking button only appears after success */}
-      {success && customerId && (
-        <button onClick={() => navigate(`/customer/${customerId}/booking`)}>
-          Book a Service
-        </button>
-      )}
+            <div>
+              <label style={{ display: "block", marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "500" }}>Email *</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="john.doe@example.com"
+                style={{ width: "100%", padding: "0.75rem", borderRadius: "0.5rem", border: "1px solid #cbd5e1", background: "rgba(255,255,255,0.8)" }}
+              />
+            </div>
+
+            <div>
+              <label style={{ display: "block", marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "500" }}>Phone</label>
+              <input
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="+1 (555) 000-0000"
+                style={{ width: "100%", padding: "0.75rem", borderRadius: "0.5rem", border: "1px solid #cbd5e1", background: "rgba(255,255,255,0.8)" }}
+              />
+            </div>
+
+            <div>
+              <label style={{ display: "block", marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "500" }}>Date of Birth</label>
+              <input
+                type="date"
+                value={dateOfBirth}
+                onChange={(e) => setDateOfBirth(e.target.value)}
+                max={new Date().toISOString().split("T")[0]} // Prevent future dates in picker
+                style={{ width: "100%", padding: "0.75rem", borderRadius: "0.5rem", border: "1px solid #cbd5e1", background: "rgba(255,255,255,0.8)" }}
+              />
+            </div>
+
+            <button type="submit" className="btn btn-primary" style={{ marginTop: "1rem", width: "100%" }}>
+              Register Customer
+            </button>
+
+            <button
+              type="button"
+              onClick={() => navigate("/customer")}
+              style={{ background: "none", border: "none", color: "var(--primary-color)", cursor: "pointer", textDecoration: "underline", fontSize: "0.9rem", alignSelf: "center" }}
+            >
+              Back to Portal
+            </button>
+          </form>
+        ) : (
+          <div style={{ textAlign: "center" }}>
+            <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>🎉</div>
+            <h3 style={{ color: "var(--success-color)", marginBottom: "1rem" }}>Registration Successful!</h3>
+            <p style={{ marginBottom: "1.5rem", color: "var(--text-secondary)" }}>
+              Your Customer ID is: <strong>{customerId}</strong>
+            </p>
+            <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+              <button
+                className="btn btn-primary"
+                onClick={() => navigate(`/customer/${customerId}/booking`)}
+              >
+                Book a Service Now
+              </button>
+              <button
+                className="btn btn-secondary"
+                onClick={() => navigate("/customer")}
+              >
+                Back to Portal
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* ✅ Feedback messages */}
+        {error && (
+          <div style={{ marginTop: "1rem", padding: "0.75rem", background: "rgba(239, 68, 68, 0.1)", border: "1px solid var(--error-color)", borderRadius: "0.5rem", color: "var(--error-color)", textAlign: "center" }}>
+            {error}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

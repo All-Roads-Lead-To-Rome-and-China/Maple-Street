@@ -71,54 +71,88 @@ const StaffScheduling = () => {
   };
 
   return (
-    <div style={{ maxWidth: "1000px", margin: "0 auto", textAlign: "left" }}>
-      <h2>Staff Scheduling</h2>
+    <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+      <h2 style={{ marginBottom: "2rem", color: "var(--primary-color)" }}>Staff Scheduling</h2>
 
-      <h3>Mechanics & Shifts</h3>
-      {mechanics.map((m) => (
-        <div key={m.$id} style={{ marginBottom: "20px" }}>
-          <strong>{m.name}</strong> ({m.specialization || "General"})
-          <ul>
-            {(shifts[m.$id!] || []).map((s) => (
-              <li key={s.$id}>
-                {new Date(s.startTime).toLocaleString()} →{" "}
-                {new Date(s.endTime).toLocaleString()}
-              </li>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2rem" }}>
+        {/* Mechanics & Shifts Column */}
+        <div>
+          <h3 style={{ marginBottom: "1rem", color: "var(--text-primary)" }}>Mechanics & Shifts</h3>
+          <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+            {mechanics.map((m) => (
+              <div key={m.$id} className="glass-panel" style={{ padding: "1.5rem" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
+                  <div>
+                    <h4 style={{ margin: 0, fontSize: "1.1rem" }}>{m.name}</h4>
+                    <span style={{ fontSize: "0.9rem", color: "var(--text-secondary)" }}>{m.specialization || "General"}</span>
+                  </div>
+                  <div style={{
+                    width: "32px",
+                    height: "32px",
+                    borderRadius: "50%",
+                    background: "var(--primary-color)",
+                    color: "white",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontWeight: "bold"
+                  }}>
+                    {m.name.charAt(0)}
+                  </div>
+                </div>
+                <div style={{ borderTop: "1px solid #e2e8f0", paddingTop: "1rem" }}>
+                  <h5 style={{ fontSize: "0.9rem", color: "var(--text-secondary)", marginBottom: "0.5rem" }}>Assigned Shifts</h5>
+                  {(shifts[m.$id!] || []).length > 0 ? (
+                    <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+                      {(shifts[m.$id!] || []).map((s) => (
+                        <li key={s.$id} style={{
+                          fontSize: "0.9rem",
+                          marginBottom: "0.5rem",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "0.5rem"
+                        }}>
+                          <span style={{ color: "var(--success-color)" }}>●</span>
+                          {new Date(s.startTime).toLocaleDateString()} {new Date(s.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                          <span style={{ color: "var(--text-secondary)" }}>➝</span>
+                          {new Date(s.endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p style={{ fontSize: "0.9rem", color: "var(--text-secondary)", fontStyle: "italic" }}>No shifts assigned</p>
+                  )}
+                </div>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
-      ))}
 
-      <h3>Bookings</h3>
-      <table
-        border={1}
-        cellPadding={8}
-        style={{ width: "100%", marginBottom: "20px" }}
-      >
-        <thead>
-          <tr>
-            <th>Booking ID</th>
-            <th>Customer</th>
-            <th>Vehicle</th>
-            <th>Service</th>
-            <th>Date</th>
-            <th>Mechanic Assignment</th>
-          </tr>
-        </thead>
-        <tbody>
-          {bookings.map((b) => (
-            <tr key={b.$id}>
-              <td>{b.$id}</td>
-              <td>{b.customerId}</td>
-              <td>
-                {b.vehicleMake} {b.vehicleModel} ({b.vehicleYear})
-              </td>
-              <td>{b.serviceType}</td>
-              <td>{new Date(b.bookingDate).toLocaleString()}</td>
-              <td>
+        {/* Bookings Column */}
+        <div>
+          <h3 style={{ marginBottom: "1rem", color: "var(--text-primary)" }}>Pending Assignments</h3>
+          <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+            {bookings.filter(b => b.status !== 'Cancelled' && b.status !== 'Completed').map((b) => (
+              <div key={b.$id} className="glass-panel" style={{ padding: "1.5rem", borderLeft: "4px solid var(--accent-color)" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.5rem" }}>
+                  <span style={{ fontWeight: "bold", color: "var(--primary-color)" }}>{b.serviceType}</span>
+                  <span style={{ fontSize: "0.9rem", color: "var(--text-secondary)" }}>{new Date(b.bookingDate).toLocaleDateString()}</span>
+                </div>
+                <p style={{ margin: "0 0 1rem 0", fontSize: "0.9rem" }}>
+                  {b.vehicleYear} {b.vehicleMake} {b.vehicleModel}
+                </p>
+
+                <label style={{ display: "block", fontSize: "0.8rem", marginBottom: "0.25rem", color: "var(--text-secondary)" }}>Assign Mechanic:</label>
                 <select
                   value={b.mechanicId || ""}
                   onChange={(e) => handleAssignMechanic(b.$id!, e.target.value)}
+                  style={{
+                    width: "100%",
+                    padding: "0.5rem",
+                    borderRadius: "0.5rem",
+                    border: "1px solid #cbd5e1",
+                    background: "white"
+                  }}
                 >
                   <option value="">Unassigned</option>
                   {mechanics.map((m) => (
@@ -127,17 +161,20 @@ const StaffScheduling = () => {
                       value={m.$id}
                       disabled={!canAssignBooking(b, m.$id!)} // ❌ disable if outside shift
                     >
-                      {m.name} ({m.specialization || "General"})
+                      {m.name} ({m.specialization || "General"}) {!canAssignBooking(b, m.$id!) && "(Unavailable)"}
                     </option>
                   ))}
                 </select>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+              </div>
+            ))}
+            {bookings.filter(b => b.status !== 'Cancelled' && b.status !== 'Completed').length === 0 && (
+              <p style={{ color: "var(--text-secondary)", fontStyle: "italic" }}>No pending bookings to assign.</p>
+            )}
+          </div>
+        </div>
+      </div>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p style={{ color: "var(--error-color)", marginTop: "1rem" }}>{error}</p>}
     </div>
   );
 };
