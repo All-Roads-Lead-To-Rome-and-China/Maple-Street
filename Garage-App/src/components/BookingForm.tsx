@@ -139,8 +139,9 @@ const BookingForm = ({ customerId }: { customerId: string }) => {
           {currentStep === 0 && (
             <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
               <div>
-                <label style={labelStyle}>Registration Number *</label>
+                <label htmlFor="registrationNumber" style={labelStyle}>Registration Number *</label>
                 <input
+                  id="registrationNumber"
                   value={registrationNumber}
                   onChange={(e) => setRegistrationNumber(e.target.value)}
                   placeholder="e.g. ABC-123"
@@ -149,8 +150,9 @@ const BookingForm = ({ customerId }: { customerId: string }) => {
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
                 <div>
-                  <label style={labelStyle}>Vehicle Make *</label>
+                  <label htmlFor="vehicleMake" style={labelStyle}>Vehicle Make *</label>
                   <input
+                    id="vehicleMake"
                     value={vehicleMake}
                     onChange={(e) => setVehicleMake(e.target.value)}
                     placeholder="e.g. Toyota"
@@ -158,8 +160,9 @@ const BookingForm = ({ customerId }: { customerId: string }) => {
                   />
                 </div>
                 <div>
-                  <label style={labelStyle}>Vehicle Model *</label>
+                  <label htmlFor="vehicleModel" style={labelStyle}>Vehicle Model *</label>
                   <input
+                    id="vehicleModel"
                     value={vehicleModel}
                     onChange={(e) => setVehicleModel(e.target.value)}
                     placeholder="e.g. Corolla"
@@ -168,8 +171,9 @@ const BookingForm = ({ customerId }: { customerId: string }) => {
                 </div>
               </div>
               <div>
-                <label style={labelStyle}>Vehicle Year</label>
+                <label htmlFor="vehicleYear" style={labelStyle}>Vehicle Year</label>
                 <input
+                  id="vehicleYear"
                   type="number"
                   value={vehicleYear}
                   onChange={(e) => setVehicleYear(e.target.value ? Number(e.target.value) : "")}
@@ -206,8 +210,9 @@ const BookingForm = ({ customerId }: { customerId: string }) => {
                 ))}
               </div>
               <div style={{ marginTop: "1rem" }}>
-                <label style={labelStyle}>Or enter custom service:</label>
+                <label htmlFor="customService" style={labelStyle}>Or enter custom service:</label>
                 <input
+                  id="customService"
                   value={serviceType}
                   onChange={(e) => setServiceType(e.target.value)}
                   placeholder="Describe issue..."
@@ -221,8 +226,9 @@ const BookingForm = ({ customerId }: { customerId: string }) => {
           {currentStep === 2 && (
             <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
               <div>
-                <label style={labelStyle}>Preferred Date *</label>
+                <label htmlFor="bookingDate" style={labelStyle}>Preferred Date *</label>
                 <input
+                  id="bookingDate"
                   type="date"
                   value={bookingDate}
                   onChange={(e) => setBookingDate(e.target.value)}
@@ -231,8 +237,9 @@ const BookingForm = ({ customerId }: { customerId: string }) => {
                 />
               </div>
               <div>
-                <label style={labelStyle}>Preferred Time *</label>
+                <label htmlFor="bookingTime" style={labelStyle}>Preferred Time *</label>
                 <input
+                  id="bookingTime"
                   type="time"
                   value={bookingTime}
                   onChange={(e) => setBookingTime(e.target.value)}

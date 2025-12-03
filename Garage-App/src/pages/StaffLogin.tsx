@@ -28,8 +28,9 @@ const StaffLogin = () => {
                 <h2 className="text-center" style={{ marginBottom: "1.5rem", color: "var(--primary-color)" }}>Staff Login</h2>
                 <form onSubmit={handleLogin} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                     <div>
-                        <label style={{ display: "block", marginBottom: "0.5rem", color: "var(--text-secondary)" }}>Username</label>
+                        <label htmlFor="username" style={{ display: "block", marginBottom: "0.5rem", color: "var(--text-secondary)" }}>Username</label>
                         <input
+                            id="username"
                             type="text"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
@@ -44,8 +45,9 @@ const StaffLogin = () => {
                         />
                     </div>
                     <div>
-                        <label style={{ display: "block", marginBottom: "0.5rem", color: "var(--text-secondary)" }}>Password</label>
+                        <label htmlFor="password" style={{ display: "block", marginBottom: "0.5rem", color: "var(--text-secondary)" }}>Password</label>
                         <input
+                            id="password"
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
