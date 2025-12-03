@@ -1,25 +1,46 @@
-# Advanced Software Engineering
+# Maple Street - Garage Management App
 
-A repository for assignments from the Advanced Software Engineering module. This repo contains coursework, example implementations, and supporting documentation produced by the course collaborators.
+A comprehensive web application for managing a mechanic shop, built as part of the Advanced Software Engineering module. This application facilitates customer bookings, service management, and interactive location features.
 
----
+## 🚀 Tech Stack
 
-## Collaborators
+- **Frontend Framework**: [React](https://react.dev/) + [Vite](https://vitejs.dev/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Routing**: [React Router](https://reactrouter.com/)
+- **Backend/Auth**: [Appwrite](https://appwrite.io/)
+- **Maps**: [Leaflet](https://leafletjs.com/) & [React Leaflet](https://react-leaflet.js.org/)
 
-The following people contribute to this repository:
+## 🛠️ Getting Started
 
-- Kevin
-- Emmanuel
-- Evan
-- 💕Thushan💕
-- Daniel
+### Prerequisites
+- Node.js (Latest LTS recommended)
+- npm or yarn
 
-## How to use
+### Installation
 
-TBC
+1. Navigate to the application directory:
+   ```bash
+   cd Garage-App
+   ```
 
-## Project layout
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-## TBC
+### Running the Application
 
-Time to 🧑‍🍳
+Start the development server:
+```bash
+npm run dev
+```
+
+The application will be available at `http://localhost:5173` (or the port shown in your terminal).
+
+## 👥 Collaborators
+
+- Kevin - Frontend/Deployment
+- Emmanuel - Backend
+- Evan - Testing
+- Thushan - Frontend
+- Daniel - Architecture
