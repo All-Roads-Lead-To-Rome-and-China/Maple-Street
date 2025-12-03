@@ -37,48 +37,48 @@ const HomePage = () => {
 
   return (
     <div className="page-container" style={{ padding: 0, maxWidth: "100%" }}>
-
+      
       {/* Hero Section */}
-      <section style={{
-        position: "relative",
-        height: "80vh",
-        display: "flex",
-        alignItems: "center",
+      <section style={{ 
+        position: "relative", 
+        height: "80vh", 
+        display: "flex", 
+        alignItems: "center", 
         justifyContent: "center",
         overflow: "hidden",
         background: "linear-gradient(135deg, #1e293b 0%, #0f172a 100%)",
         color: "white"
       }}>
-        <div style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
+        <div style={{ 
+          position: "absolute", 
+          top: 0, 
+          left: 0, 
+          width: "100%", 
+          height: "100%", 
           opacity: 0.6,
           backgroundImage: `url(${heroImg})`,
           backgroundSize: "cover",
           backgroundPosition: "center"
         }} />
-
+        
         <div style={{ position: "relative", zIndex: 10, textAlign: "center", padding: "2rem", maxWidth: "800px", background: "rgba(0,0,0,0.5)", borderRadius: "1rem", backdropFilter: "blur(5px)" }}>
           <h1 style={{ fontSize: "4rem", fontWeight: "800", marginBottom: "1.5rem", lineHeight: 1.1, textShadow: "0 4px 6px rgba(0,0,0,0.5)", color: "white" }}>
-            Expert Care for <br /> <span style={{ color: "var(--accent-color)" }}>Your Vehicle</span>
+            Expert Care for <br/> <span style={{ color: "var(--accent-color)" }}>Your Vehicle</span>
           </h1>
           <p style={{ fontSize: "1.25rem", marginBottom: "2.5rem", color: "#e2e8f0", maxWidth: "600px", margin: "0 auto 2.5rem" }}>
-            Professional auto repair and maintenance services you can trust.
+            Professional auto repair and maintenance services you can trust. 
             Book your appointment online today.
           </p>
           <div style={{ display: "flex", gap: "1rem", justifyContent: "center" }}>
-            <button
-              className="btn btn-primary"
+            <button 
+              className="btn btn-primary" 
               style={{ padding: "1rem 2rem", fontSize: "1.1rem" }}
-              onClick={() => navigate("/customer/register")}
+              onClick={() => navigate("/customer")}
             >
               Book Now
             </button>
-            <button
-              className="btn btn-outline"
+            <button 
+              className="btn btn-outline" 
               style={{ padding: "1rem 2rem", fontSize: "1.1rem" }}
               onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })}
             >
@@ -95,7 +95,7 @@ const HomePage = () => {
             <h2 style={{ fontSize: "2.5rem", color: "var(--text-primary)", marginBottom: "1rem" }}>Our Services</h2>
             <p style={{ color: "var(--text-secondary)", fontSize: "1.1rem" }}>Comprehensive maintenance and repair solutions.</p>
           </div>
-
+          
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "2rem" }}>
             {services.map((s, i) => (
               <div key={i} className="glass-panel" style={{ padding: "0", textAlign: "center", transition: "transform 0.2s", overflow: "hidden", display: "flex", flexDirection: "column" }} onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-5px)"} onMouseLeave={(e) => e.currentTarget.style.transform = "translateY(0)"}>
@@ -139,10 +139,10 @@ const HomePage = () => {
             </div>
           </div>
           <div style={{ flex: 1, minWidth: "300px", height: "400px", background: "#f1f5f9", borderRadius: "1rem", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <div style={{ textAlign: "center", color: "var(--text-secondary)" }}>
-              <div style={{ fontSize: "4rem", marginBottom: "1rem" }}>🏆</div>
-              <h3>Award Winning Service</h3>
-            </div>
+             <div style={{ textAlign: "center", color: "var(--text-secondary)" }}>
+               <div style={{ fontSize: "4rem", marginBottom: "1rem" }}>🏆</div>
+               <h3>Award Winning Service</h3>
+             </div>
           </div>
         </div>
       </section>
@@ -154,23 +154,23 @@ const HomePage = () => {
             <h2 style={{ fontSize: "2.5rem", marginBottom: "1rem" }}>Visit Us</h2>
             <p style={{ color: "var(--text-secondary)", fontSize: "1.1rem" }}>Conveniently located at MKU Boulevard, Milton Keynes.</p>
           </div>
-
+          
           <div style={{ height: "450px", borderRadius: "1rem", overflow: "hidden", boxShadow: "var(--shadow-lg)", border: "4px solid white" }}>
-            <MapContainer
-              center={[52.041, -0.758]}
-              zoom={15}
-              style={{ height: "100%", width: "100%" }}
-            >
-              <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              />
-              <Marker position={[52.041, -0.758]}>
-                <Popup>
-                  Maple Street Auto Repairs <br /> MKU Boulevard, Milton Keynes
-                </Popup>
-              </Marker>
-            </MapContainer>
+             <MapContainer 
+               center={[52.041, -0.758]} 
+               zoom={15} 
+               style={{ height: "100%", width: "100%" }}
+             >
+               <TileLayer
+                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+               />
+               <Marker position={[52.041, -0.758]}>
+                 <Popup>
+                   Maple Street Auto Repairs <br /> MKU Boulevard, Milton Keynes
+                 </Popup>
+               </Marker>
+             </MapContainer>
           </div>
         </div>
       </section>
@@ -179,7 +179,7 @@ const HomePage = () => {
       <footer style={{ background: "#1e293b", color: "white", padding: "4rem 2rem 2rem" }}>
         <div className="container">
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "3rem", marginBottom: "3rem" }}>
-
+            
             {/* Brand */}
             <div>
               <h3 style={{ fontSize: "1.5rem", marginBottom: "1rem", color: "white" }}>Maple Street Auto</h3>
