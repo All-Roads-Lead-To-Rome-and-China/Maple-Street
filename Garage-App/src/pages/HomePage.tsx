@@ -96,24 +96,19 @@ const HomePage = () => {
           <div style={{ textAlign: "center", marginBottom: "4rem" }}>
             <h2 style={{ fontSize: "2.5rem", color: "var(--text-primary)", marginBottom: "1rem" }}>Our Services</h2>
             <p style={{ color: "var(--text-secondary)", fontSize: "1.1rem" }}>Comprehensive maintenance and repair solutions.</p>
-          </div>
-
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "2rem" }}>
-            {services.map((s, i) => (
-              <div key={i} className="glass-panel" style={{ padding: "0", textAlign: "center", transition: "transform 0.2s", overflow: "hidden", display: "flex", flexDirection: "column" }} onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-5px)"} onMouseLeave={(e) => e.currentTarget.style.transform = "translateY(0)"}>
-                <div style={{ height: "200px", background: "#e2e8f0", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
-                  {s.img ? (
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "2rem" }}>
+              {services.map((s, i) => (
+                <div key={i} className="glass-panel" style={{ padding: "0", textAlign: "center", transition: "transform 0.2s", overflow: "hidden", display: "flex", flexDirection: "column" }} onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-5px)"} onMouseLeave={(e) => e.currentTarget.style.transform = "translateY(0)"}>
+                  <div style={{ height: "200px", background: "#e2e8f0", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
                     <img src={s.img} alt={s.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                  ) : (
-                    <div style={{ fontSize: "4rem" }}>{s.icon}</div>
-                  )}
+                  </div>
+                  <div style={{ padding: "1.5rem" }}>
+                    <h3 style={{ marginBottom: "0.5rem", color: "var(--text-primary)" }}>{s.title}</h3>
+                    <p style={{ color: "var(--text-secondary)" }}>{s.desc}</p>
+                  </div>
                 </div>
-                <div style={{ padding: "1.5rem" }}>
-                  <h3 style={{ marginBottom: "0.5rem", color: "var(--text-primary)" }}>{s.title}</h3>
-                  <p style={{ color: "var(--text-secondary)" }}>{s.desc}</p>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -195,7 +190,7 @@ const HomePage = () => {
               <h4 style={{ fontSize: "1.1rem", marginBottom: "1rem", color: "white" }}>Contact Us</h4>
               <ul style={{ listStyle: "none", padding: 0, color: "#94a3b8", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
                 <li>📍 MKU Boulevard, Milton Keynes</li>
-                <li>📞 (01908) 555-555</li>
+                <li>📞 +44 7466 555 555</li>
                 <li>✉️ info@maplestreetauto.com</li>
                 <li>⏰ Mon-Fri: 8am - 6pm</li>
               </ul>
