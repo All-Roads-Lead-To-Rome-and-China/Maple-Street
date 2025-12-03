@@ -77,15 +77,9 @@ const HomePage = () => {
               style={{ padding: "1rem 2rem", fontSize: "1.1rem" }}
               onClick={() => navigate("/customer")}
             >
-              Book Now
+              Book an appointment
             </button>
-            <button
-              className="btn btn-outline"
-              style={{ padding: "1rem 2rem", fontSize: "1.1rem" }}
-              onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })}
-            >
-              View Services
-            </button>
+
           </div>
         </div>
       </section>
