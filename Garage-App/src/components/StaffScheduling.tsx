@@ -71,7 +71,6 @@ const StaffScheduling = () => {
   };
 
   return (
-<<<<<<< HEAD
     <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
       <h2 style={{ marginBottom: "2rem", color: "var(--primary-color)" }}>Staff Scheduling</h2>
 
@@ -154,56 +153,6 @@ const StaffScheduling = () => {
                     border: "1px solid #cbd5e1",
                     background: "white"
                   }}
-=======
-    <div style={{ maxWidth: "1000px", margin: "0 auto", textAlign: "left" }}>
-      <h2>Staff Scheduling</h2>
-
-      <h3>Mechanics & Shifts</h3>
-      {mechanics.map((m) => (
-        <div key={m.$id} style={{ marginBottom: "20px" }}>
-          <strong>{m.name}</strong> ({m.specialization || "General"})
-          <ul>
-            {(shifts[m.$id!] || []).map((s) => (
-              <li key={s.$id}>
-                {new Date(s.startTime).toLocaleString()} →{" "}
-                {new Date(s.endTime).toLocaleString()}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
-
-      <h3>Bookings</h3>
-      <table
-        border={1}
-        cellPadding={8}
-        style={{ width: "100%", marginBottom: "20px" }}
-      >
-        <thead>
-          <tr>
-            <th>Booking ID</th>
-            <th>Customer</th>
-            <th>Vehicle</th>
-            <th>Service</th>
-            <th>Date</th>
-            <th>Mechanic Assignment</th>
-          </tr>
-        </thead>
-        <tbody>
-          {bookings.map((b) => (
-            <tr key={b.$id}>
-              <td>{b.$id}</td>
-              <td>{b.customerId}</td>
-              <td>
-                {b.vehicleMake} {b.vehicleModel} ({b.vehicleYear})
-              </td>
-              <td>{b.serviceType}</td>
-              <td>{new Date(b.bookingDate).toLocaleString()}</td>
-              <td>
-                <select
-                  value={b.mechanicId || ""}
-                  onChange={(e) => handleAssignMechanic(b.$id!, e.target.value)}
->>>>>>> origin/FE
                 >
                   <option value="">Unassigned</option>
                   {mechanics.map((m) => (
@@ -212,7 +161,6 @@ const StaffScheduling = () => {
                       value={m.$id}
                       disabled={!canAssignBooking(b, m.$id!)} // ❌ disable if outside shift
                     >
-<<<<<<< HEAD
                       {m.name} ({m.specialization || "General"}) {!canAssignBooking(b, m.$id!) && "(Unavailable)"}
                     </option>
                   ))}
@@ -227,19 +175,6 @@ const StaffScheduling = () => {
       </div>
 
       {error && <p style={{ color: "var(--error-color)", marginTop: "1rem" }}>{error}</p>}
-=======
-                      {m.name} ({m.specialization || "General"})
-                    </option>
-                  ))}
-                </select>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      {error && <p style={{ color: "red" }}>{error}</p>}
->>>>>>> origin/FE
     </div>
   );
 };
