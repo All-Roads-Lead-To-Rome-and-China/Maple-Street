@@ -152,7 +152,15 @@ const CustomerList = () => {
           zIndex: 1000
         }}>
           <div className="glass-panel" style={{ width: "100%", maxWidth: "500px", padding: "2rem", background: "white" }}>
-            <h3 style={{ marginBottom: "1.5rem", color: "var(--primary-color)" }}>Edit Customer</h3>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
+              <h3 style={{ margin: 0, color: "var(--primary-color)" }}>Edit Customer</h3>
+              <button
+                onClick={() => setSelectedCustomer(null)}
+                style={{ background: "none", border: "none", fontSize: "1.5rem", cursor: "pointer", color: "var(--text-secondary)" }}
+              >
+                &times;
+              </button>
+            </div>
             <div style={{ display: "grid", gap: "1rem" }}>
               <div>
                 <label style={{ display: "block", marginBottom: "0.5rem", fontSize: "0.9rem" }}>First Name</label>
