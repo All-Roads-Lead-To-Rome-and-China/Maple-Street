@@ -4,7 +4,11 @@ import {
   Route,
   useParams,
 } from "react-router-dom";
+<<<<<<< HEAD
 import HomePage from "./pages/HomePage";
+=======
+import HomePage from "./pages/HomePage"
+>>>>>>> origin/FE
 import CustomerPortal from "./pages/CustomerPortal";
 import CustomerRegistrationForm from "./components/CustomerRegistrationForm";
 import CustomerProfile from "./components/CustomerProfile";
@@ -15,6 +19,8 @@ import CustomerBookings from "./components/CustomerBookings";
 import StaffDashboard from "./pages/StaffDashboard";
 import StaffLogin from "./pages/StaffLogin";
 import InventoryList from "./components/InventoryList";
+import AppointmentScheduling from "./components/AppointmentScheduling";
+import StaffScheduling from "./components/StaffScheduling";
 
 // Wrapper to extract customerId from URL and pass to BookingForm
 const BookingFormWrapper = () => {
@@ -58,6 +64,7 @@ function App() {
         <Route path="/staff/login" element={<StaffLogin />} />
         <Route path="/staff" element={<StaffDashboard />} />
         <Route path="/staff/customers" element={<CustomerList />} />
+<<<<<<< HEAD
         <Route
           path="/staff/appointments"
           element={<div>Appointment Scheduling Component</div>}
@@ -66,14 +73,15 @@ function App() {
           path="/staff/inventory"
           element={<InventoryList />}
         />
+=======
+        <Route path="/staff/appointments" element={<AppointmentScheduling />} />
+        <Route path="/staff/inventory" element={<InventoryList />} />
+>>>>>>> origin/FE
         <Route
           path="/staff/invoices"
           element={<div>Invoices & Payments Component</div>}
         />
-        <Route
-          path="/staff/scheduling"
-          element={<div>Staff Scheduling Component</div>}
-        />
+        <Route path="/staff/scheduling" element={<StaffScheduling />} />
         <Route
           path="/staff/compliance"
           element={<div>Compliance & Safety Component</div>}

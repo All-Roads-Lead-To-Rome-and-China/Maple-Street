@@ -54,6 +54,7 @@ const AppointmentScheduling = () => {
     }
   };
 
+<<<<<<< HEAD
   const getStatusColor = (status: string) => {
     switch (status) {
       case "Confirmed": return "var(--success-color)";
@@ -138,6 +139,68 @@ const AppointmentScheduling = () => {
       </div>
 
       {error && <p style={{ color: "var(--error-color)", marginTop: "1rem" }}>{error}</p>}
+=======
+  return (
+    <div style={{ maxWidth: "1000px", margin: "0 auto", textAlign: "left" }}>
+      <h2>Staff: Appointment Scheduling</h2>
+
+      <table
+        border={1}
+        cellPadding={8}
+        style={{ width: "100%", marginBottom: "20px" }}
+      >
+        <thead>
+          <tr>
+            <th>Booking ID</th>
+            <th>Customer ID</th>
+            <th>Vehicle</th>
+            <th>Service</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Mechanic</th>
+          </tr>
+        </thead>
+        <tbody>
+          {bookings.map((b) => (
+            <tr key={b.$id}>
+              <td>{b.$id}</td>
+              <td>{b.customerId}</td>
+              <td>
+                {b.vehicleMake} {b.vehicleModel} ({b.vehicleYear})
+              </td>
+              <td>{b.serviceType}</td>
+              <td>{new Date(b.bookingDate).toLocaleString()}</td>
+              <td>
+                <select
+                  value={b.status}
+                  onChange={(e) => handleStatusChange(b.$id!, e.target.value)}
+                >
+                  <option value="Pending">Pending</option>
+                  <option value="Confirmed">Confirmed</option>
+                  <option value="Completed">Completed</option>
+                  <option value="Cancelled">Cancelled</option>
+                </select>
+              </td>
+              <td>
+                <select
+                  value={b.mechanicId || ""}
+                  onChange={(e) => handleAssignMechanic(b.$id!, e.target.value)}
+                >
+                  <option value="">Unassigned</option>
+                  {mechanics.map((m) => (
+                    <option key={m.$id} value={m.$id}>
+                      {m.name} ({m.specialization || "General"})
+                    </option>
+                  ))}
+                </select>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {error && <p style={{ color: "red" }}>{error}</p>}
+>>>>>>> origin/FE
     </div>
   );
 };
