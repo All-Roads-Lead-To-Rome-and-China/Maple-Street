@@ -1,5 +1,7 @@
 # Maple Street - Garage Management App
 
+![CI](https://github.com/All-Roads-Lead-To-Rome-and-China/Maple-Street/actions/workflows/ci.yml/badge.svg)
+
 A comprehensive web application for managing a mechanic shop, built as part of the Advanced Software Engineering module. This application facilitates customer bookings, service management, and interactive location features.
 
 ## 🚀 Tech Stack
