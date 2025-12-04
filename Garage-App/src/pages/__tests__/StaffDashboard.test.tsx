@@ -38,6 +38,7 @@ const renderWithContext = (component: React.ReactNode) => {
                 getMechanicShifts: vi.fn(),
                 createShift: vi.fn(),
                 swapShift: vi.fn()
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } as any}>
                 <BookingContext.Provider value={{
                     getAllBookings: mockGetAllBookings,
@@ -46,6 +47,7 @@ const renderWithContext = (component: React.ReactNode) => {
                     getBookingsByMechanic: vi.fn(),
                     updateBookingStatus: vi.fn(),
                     assignMechanic: vi.fn()
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 } as any}>
                     {component}
                 </BookingContext.Provider>

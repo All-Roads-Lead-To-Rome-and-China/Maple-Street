@@ -13,7 +13,7 @@ export interface CustomerData {
   email: string;
   phone?: string;
   dateOfBirth?: string;
-  // isActive: boolean;
+  isActive?: boolean;
   $id?: string; // Appwrite Document ID
 }
 
@@ -49,6 +49,7 @@ interface CustomerInteractionContextType {
   ) => Promise<void>;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const CustomerInteractionContext =
   React.createContext<CustomerInteractionContextType | null>(null);
 
@@ -69,7 +70,7 @@ const CustomerInteractionProvider = ({
     try {
       // Ensure we don't send undefined fields that are not required
       const cleanData = Object.fromEntries(
-        Object.entries(customerInput).filter(([_, v]) => v != null)
+        Object.entries(customerInput).filter((entry) => entry[1] != null)
       );
 
       const response = await databases.createDocument(

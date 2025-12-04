@@ -34,6 +34,7 @@ interface InventoryContextType {
   updateStock: (itemId: string, newQuantity: number) => Promise<void>;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const InventoryContext = createContext<InventoryContextType | null>(
   null
 );

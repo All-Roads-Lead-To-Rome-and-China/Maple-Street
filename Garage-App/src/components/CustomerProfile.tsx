@@ -1,13 +1,14 @@
 import { useState } from "react";
 import useCustomerInteraction from "../hooks/useCustomerInteraction";
 import { useNavigate } from "react-router-dom";
+import type { CustomerData } from "../contexts/CustomerInteractionContext";
 
 const CustomerProfile = () => {
   const { getCustomerByCustomerId, updateCustomer } = useCustomerInteraction();
   const navigate = useNavigate();
 
   const [customerId, setCustomerId] = useState("");
-  const [customer, setCustomer] = useState<any | null>(null);
+  const [customer, setCustomer] = useState<CustomerData | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -18,7 +19,7 @@ const CustomerProfile = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
-  const [isActive] = useState(true);
+  // const [isActive] = useState(true);
 
   const handleFetchProfile = async () => {
     setError(null);
@@ -60,7 +61,7 @@ const CustomerProfile = () => {
       setSuccess("Customer details updated successfully!");
       setIsEditing(false); // back to view mode
       // Refresh the customer object to reflect latest values
-      setCustomer((prev: any) =>
+      setCustomer((prev) =>
         prev
           ? {
             ...prev,
@@ -69,7 +70,7 @@ const CustomerProfile = () => {
             email,
             phone,
             dateOfBirth,
-            isActive,
+            isActive: prev.isActive,
           }
           : prev
       );
@@ -118,8 +119,8 @@ const CustomerProfile = () => {
                 <h3 style={{ margin: 0, fontSize: "1.25rem" }}>{customer.firstName} {customer.lastName}</h3>
                 <span style={{ fontSize: "0.85rem", color: "var(--text-secondary)" }}>ID: {customer.customerId}</span>
               </div>
-              <div style={{ padding: "0.25rem 0.75rem", borderRadius: "1rem", background: customer.isActive ? "var(--success-color)" : "var(--text-secondary)", color: "white", fontSize: "0.8rem" }}>
-                {customer.isActive ? "Active" : "Inactive"}
+              <div style={{ padding: "0.25rem 0.75rem", borderRadius: "1rem", background: customer.isActive !== false ? "var(--success-color)" : "var(--text-secondary)", color: "white", fontSize: "0.8rem" }}>
+                {customer.isActive !== false ? "Active" : "Inactive"}
               </div>
             </div>
 

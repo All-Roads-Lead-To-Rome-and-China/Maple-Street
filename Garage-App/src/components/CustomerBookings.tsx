@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import useBooking from "../hooks/useBooking";
+import type { BookingData } from "../contexts/BookingContext";
 
 const CustomerBookings = () => {
   const { customerId } = useParams();
   const { getBookingsByCustomer } = useBooking();
   const navigate = useNavigate();
 
-  const [bookings, setBookings] = useState<any[]>([]);
+  const [bookings, setBookings] = useState<BookingData[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -16,7 +17,7 @@ const CustomerBookings = () => {
       try {
         const data = await getBookingsByCustomer(customerId!);
         // Sort by date descending (newest first)
-        const sorted = (data || []).sort((a: any, b: any) =>
+        const sorted = (data || []).sort((a: BookingData, b: BookingData) =>
           new Date(b.bookingDate).getTime() - new Date(a.bookingDate).getTime()
         );
         setBookings(sorted);

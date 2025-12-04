@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import useInventory from "../hooks/useInventory";
+import type { InventoryItem } from "../contexts/InventoryContext";
 
 const InventoryList = () => {
   const { getAllInventory, addItem, updateStock } = useInventory();
 
-  const [items, setItems] = useState<any[]>([]);
+  const [items, setItems] = useState<InventoryItem[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   // Form state for adding new item
@@ -104,7 +105,7 @@ const InventoryList = () => {
                     <button
                       className="btn btn-secondary"
                       style={{ fontSize: "0.8rem", padding: "0.25rem 0.5rem" }}
-                      onClick={() => handleUpdateStock(i.$id, i.quantity)}
+                      onClick={() => i.$id && handleUpdateStock(i.$id, i.quantity)}
                     >
                       Update
                     </button>

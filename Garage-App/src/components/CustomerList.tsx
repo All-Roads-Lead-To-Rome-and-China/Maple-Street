@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import useCustomerInteraction from "../hooks/useCustomerInteraction";
+import type { CustomerData } from "../contexts/CustomerInteractionContext";
 
 const CustomerList = () => {
   const { getAllCustomers, updateCustomer } = useCustomerInteraction();
 
-  const [customers, setCustomers] = useState<any[]>([]);
-  const [filteredCustomers, setFilteredCustomers] = useState<any[]>([]);
+  const [customers, setCustomers] = useState<CustomerData[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCustomer, setSelectedCustomer] = useState<any | null>(null);
+  const [selectedCustomer, setSelectedCustomer] = useState<CustomerData | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   // Fetch all customers when component mounts
@@ -16,7 +16,6 @@ const CustomerList = () => {
       try {
         const data = await getAllCustomers();
         setCustomers(data);
-        setFilteredCustomers(data);
       } catch (err) {
         console.error("Error fetching customers:", err);
         setError("Failed to fetch customers.");
@@ -25,19 +24,14 @@ const CustomerList = () => {
     fetchAll();
   }, [getAllCustomers]);
 
-  // Handle Search
-  useEffect(() => {
-    const lowerQuery = searchQuery.toLowerCase();
-    const filtered = customers.filter(
-      (c) =>
-        c.firstName.toLowerCase().includes(lowerQuery) ||
-        c.lastName.toLowerCase().includes(lowerQuery) ||
-        c.email.toLowerCase().includes(lowerQuery)
-    );
-    setFilteredCustomers(filtered);
-  }, [searchQuery, customers]);
+  const filteredCustomers = customers.filter(
+    (c) =>
+      c.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      c.lastName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      c.email.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
-  const handleSelectCustomer = (customer: any) => {
+  const handleSelectCustomer = (customer: CustomerData) => {
     setSelectedCustomer(customer);
   };
 
@@ -107,12 +101,12 @@ const CustomerList = () => {
                   <span style={{
                     padding: "0.25rem 0.75rem",
                     borderRadius: "1rem",
-                    background: c.isActive ? "var(--success-color)" : "var(--text-secondary)",
+                    background: c.isActive !== false ? "var(--success-color)" : "var(--text-secondary)",
                     color: "white",
                     fontSize: "0.75rem",
                     fontWeight: "bold"
                   }}>
-                    {c.isActive ? "Active" : "Inactive"}
+                    {c.isActive !== false ? "Active" : "Inactive"}
                   </span>
                 </td>
                 <td style={{ padding: "1rem" }}>
@@ -196,13 +190,13 @@ const CustomerList = () => {
                 />
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                <input
+                {/* <input
                   type="checkbox"
                   checked={selectedCustomer.isActive}
                   onChange={(e) => setSelectedCustomer({ ...selectedCustomer, isActive: e.target.checked })}
                   id="isActive"
                 />
-                <label htmlFor="isActive">Active Customer</label>
+                <label htmlFor="isActive">Active Customer</label> */}
               </div>
             </div>
             <div style={{ display: "flex", gap: "1rem", marginTop: "2rem" }}>

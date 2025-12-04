@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import useBooking from "../hooks/useBooking";
 import useStaff from "../hooks/useStaff";
+import type { BookingData } from "../contexts/BookingContext";
+import type { MechanicData } from "../contexts/StaffContext";
 
 const AppointmentScheduling = () => {
   const { getAllBookings, updateBookingStatus, assignMechanic } = useBooking();
   const { getAllMechanics } = useStaff();
 
-  const [bookings, setBookings] = useState<any[]>([]);
-  const [mechanics, setMechanics] = useState<any[]>([]);
+  const [bookings, setBookings] = useState<BookingData[]>([]);
+  const [mechanics, setMechanics] = useState<MechanicData[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   // Fetch bookings + mechanics on mount
@@ -30,7 +32,7 @@ const AppointmentScheduling = () => {
   // Update booking status
   const handleStatusChange = async (bookingId: string, status: string) => {
     try {
-      await updateBookingStatus(bookingId, status as any);
+      await updateBookingStatus(bookingId, status as BookingData["status"]);
       const refreshed = await getAllBookings();
       setBookings(refreshed);
     } catch (err) {

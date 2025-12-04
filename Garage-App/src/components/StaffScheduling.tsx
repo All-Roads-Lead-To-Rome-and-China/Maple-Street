@@ -1,14 +1,16 @@
 import { useState, useEffect } from "react";
 import useStaff from "../hooks/useStaff";
 import useBooking from "../hooks/useBooking";
+import type { MechanicData, ShiftData } from "../contexts/StaffContext";
+import type { BookingData } from "../contexts/BookingContext";
 
 const StaffScheduling = () => {
   const { getAllMechanics, getMechanicShifts } = useStaff();
   const { getAllBookings, assignMechanic } = useBooking();
 
-  const [mechanics, setMechanics] = useState<any[]>([]);
-  const [shifts, setShifts] = useState<Record<string, any[]>>({});
-  const [bookings, setBookings] = useState<any[]>([]);
+  const [mechanics, setMechanics] = useState<MechanicData[]>([]);
+  const [shifts, setShifts] = useState<Record<string, ShiftData[]>>({});
+  const [bookings, setBookings] = useState<BookingData[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -21,7 +23,7 @@ const StaffScheduling = () => {
         setBookings(allBookings);
 
         // Fetch shifts for each mechanic
-        const shiftMap: Record<string, any[]> = {};
+        const shiftMap: Record<string, ShiftData[]> = {};
         for (const mech of allMechanics) {
           const mechShifts = await getMechanicShifts(mech.$id!);
           shiftMap[mech.$id!] = mechShifts;
@@ -36,7 +38,7 @@ const StaffScheduling = () => {
   }, [getAllMechanics, getMechanicShifts, getAllBookings]);
 
   // ✅ Condition check: booking must fall within a mechanic's shift
-  const canAssignBooking = (booking: any, mechanicId: string): boolean => {
+  const canAssignBooking = (booking: BookingData, mechanicId: string): boolean => {
     const mechShifts = shifts[mechanicId] || [];
     const bookingDate = new Date(booking.bookingDate);
 

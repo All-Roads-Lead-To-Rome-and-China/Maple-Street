@@ -10,9 +10,19 @@ const SERVICE_PRICES: Record<string, number> = {
   "General Repair": 80, // Base price
 };
 
+interface Invoice {
+  id: string | undefined;
+  customer: string;
+  date: string;
+  service: string;
+  vehicle: string;
+  amount: number;
+  status: string;
+}
+
 const Invoices = () => {
   const { getAllBookings } = useBooking();
-  const [invoices, setInvoices] = useState<any[]>([]);
+  const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

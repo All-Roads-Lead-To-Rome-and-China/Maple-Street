@@ -48,6 +48,7 @@ interface StaffContextType {
   swapShift: (shiftId: string, newMechanicId: string) => Promise<void>;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const StaffContext = createContext<StaffContextType | null>(null);
 
 export const StaffProvider = ({ children }: { children: React.ReactNode }) => {
