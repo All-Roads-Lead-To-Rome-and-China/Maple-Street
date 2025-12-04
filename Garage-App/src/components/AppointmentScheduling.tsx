@@ -58,17 +58,24 @@ const AppointmentScheduling = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "Confirmed": return "var(--success-color)";
-      case "Pending": return "var(--accent-color)";
-      case "Completed": return "var(--primary-color)";
-      case "Cancelled": return "var(--error-color)";
-      default: return "var(--text-secondary)";
+      case "Confirmed":
+        return "var(--success-color)";
+      case "Pending":
+        return "var(--accent-color)";
+      case "Completed":
+        return "var(--primary-color)";
+      case "Cancelled":
+        return "var(--error-color)";
+      default:
+        return "var(--text-secondary)";
     }
   };
 
   return (
     <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-      <h2 style={{ marginBottom: "2rem", color: "var(--primary-color)" }}>Appointment Scheduling</h2>
+      <h2 style={{ marginBottom: "2rem", color: "var(--primary-color)" }}>
+        Appointment Scheduling
+      </h2>
 
       <div className="glass-panel" style={{ padding: "0", overflow: "hidden" }}>
         <table style={{ width: "100%", borderCollapse: "collapse" }}>
@@ -85,8 +92,20 @@ const AppointmentScheduling = () => {
             {bookings.map((b) => (
               <tr key={b.$id} style={{ borderBottom: "1px solid #f1f5f9" }}>
                 <td style={{ padding: "1rem" }}>
-                  <div style={{ fontWeight: "bold" }}>{new Date(b.bookingDate).toLocaleDateString()}</div>
-                  <div style={{ fontSize: "0.8rem", color: "var(--text-secondary)" }}>{new Date(b.bookingDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+                  <div style={{ fontWeight: "bold" }}>
+                    {new Date(b.bookingDate).toLocaleDateString()}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: "0.8rem",
+                      color: "var(--text-secondary)",
+                    }}
+                  >
+                    {new Date(b.bookingDate).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </div>
                 </td>
                 <td style={{ padding: "1rem" }}>
                   {b.vehicleYear} {b.vehicleMake} {b.vehicleModel}
@@ -103,7 +122,7 @@ const AppointmentScheduling = () => {
                       color: getStatusColor(b.status),
                       fontWeight: "bold",
                       background: "white",
-                      cursor: "pointer"
+                      cursor: "pointer",
                     }}
                   >
                     <option value="Pending">Pending</option>
@@ -115,14 +134,16 @@ const AppointmentScheduling = () => {
                 <td style={{ padding: "1rem" }}>
                   <select
                     value={b.mechanicId || ""}
-                    onChange={(e) => handleAssignMechanic(b.$id!, e.target.value)}
+                    onChange={(e) =>
+                      handleAssignMechanic(b.$id!, e.target.value)
+                    }
                     style={{
                       padding: "0.5rem",
                       borderRadius: "0.5rem",
                       border: "1px solid #cbd5e1",
                       background: "white",
                       width: "100%",
-                      maxWidth: "200px"
+                      maxWidth: "200px",
                     }}
                   >
                     <option value="">Unassigned</option>
@@ -139,7 +160,11 @@ const AppointmentScheduling = () => {
         </table>
       </div>
 
-      {error && <p style={{ color: "var(--error-color)", marginTop: "1rem" }}>{error}</p>}
+      {error && (
+        <p style={{ color: "var(--error-color)", marginTop: "1rem" }}>
+          {error}
+        </p>
+      )}
     </div>
   );
 };
