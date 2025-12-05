@@ -322,7 +322,6 @@ const HomePage = () => {
                   backdropFilter: "blur(20px)",
                   border: "1px solid rgba(255,255,255,0.08)",
                   transition: "all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)",
-                  cursor: "pointer",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = "translateY(-12px) scale(1.02)";
