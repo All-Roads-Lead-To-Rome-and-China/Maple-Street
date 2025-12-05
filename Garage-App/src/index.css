@@ -7,38 +7,38 @@
 :root {
   /* Typography - SF-inspired with Inter */
   --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
-  
+
   /* Color Palette - Refined neutrals with subtle blue accent */
   --primary-color: #0071e3;
   --primary-hover: #0077ed;
   --primary-light: rgba(0, 113, 227, 0.1);
-  
+
   --secondary-color: #86868b;
   --accent-color: #0071e3;
-  
+
   --background-color: #fbfbfd;
   --surface-color: #ffffff;
   --surface-elevated: #ffffff;
-  
+
   --text-primary: #1d1d1f;
   --text-secondary: #86868b;
   --text-tertiary: #aeaeb2;
-  
+
   --error-color: #ff3b30;
   --success-color: #34c759;
   --warning-color: #ff9500;
-  
+
   /* Borders */
   --border-color: rgba(0, 0, 0, 0.08);
   --border-color-strong: rgba(0, 0, 0, 0.12);
-  
+
   /* Shadows - Layered, subtle */
   --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
   --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.04);
   --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.16), 0 8px 16px rgba(0, 0, 0, 0.08);
-  
+
   /* Border radius */
   --radius-sm: 8px;
   --radius-md: 12px;
@@ -46,7 +46,7 @@
   --radius-xl: 20px;
   --radius-2xl: 24px;
   --radius-full: 9999px;
-  
+
   /* Transitions */
   --transition-fast: 150ms cubic-bezier(0.25, 0.1, 0.25, 1);
   --transition-base: 250ms cubic-bezier(0.25, 0.1, 0.25, 1);
@@ -76,8 +76,75 @@ body {
   font-feature-settings: 'kern' 1, 'liga' 1;
 }
 
+
+/* Homepage smooth continuous gradient background */
+body.homepage-gradient {
+  background: linear-gradient(
+    180deg,
+    #000000 0%,
+    #000000 22%,
+    #000000 24%,
+    #010101 25%,
+    #020202 26%,
+    #030303 27%,
+    #040404 28%,
+    #050505 29%,
+    #060606 30%,
+    #070708 31%,
+    #08080a 32%,
+    #09090c 33%,
+    #0a0a0e 34%,
+    #0b0b10 35%,
+    #0c0c12 36%,
+    #0d0d14 37%,
+    #0e0e16 38%,
+    #0f0f18 39%,
+    #10101a 40%,
+    #11111c 41%,
+    #12121f 42%,
+    #131322 43%,
+    #141425 44%,
+    #151528 45%,
+    #16162b 46%,
+    #17172e 47%,
+    #181832 48%,
+    #191936 49%,
+    #1a1a3a 50%,
+    #1c1c40 52%,
+    #1e2048 54%,
+    #202650 56%,
+    #222d58 58%,
+    #243560 60%,
+    #263e68 62%,
+    #284870 64%,
+    #2a5278 66%,
+    #2c5c80 68%,
+    #2e6688 70%,
+    #307090 72%,
+    #327a98 74%,
+    #3484a0 76%,
+    #368ea8 78%,
+    #3898b0 80%,
+    #3aa2b8 82%,
+    #3dacc0 84%,
+    #42b6c8 86%,
+    #4ac0d0 88%,
+    #55cad8 90%,
+    #64d4e0 92%,
+    #78dee8 94%,
+    #94e8f2 96%,
+    #baf4fa 98%,
+    #ffffff 100%
+  );
+  min-height: 100%;
+}
 /* --- Typography --- */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   line-height: 1.15;
   font-weight: 600;
   color: var(--text-primary);
@@ -228,16 +295,19 @@ a:hover {
 }
 
 /* ==========================================
-   SCROLL ANIMATION SYSTEM
+   SCROLL ANIMATION SYSTEM - REVERSIBLE
+   Animations play forward on scroll down,
+   and seamlessly reverse on scroll up
    ========================================== */
 
 /* Base state - elements start invisible and offset */
 .scroll-animate {
   opacity: 0;
   transform: translateY(30px);
-  transition: 
-    opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1),
-    transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+  transition:
+    opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
 }
 
 .scroll-animate.animate-in {
@@ -248,10 +318,11 @@ a:hover {
 /* Fade up animation (default) */
 .scroll-fade-up {
   opacity: 0;
-  transform: translateY(40px);
-  transition: 
-    opacity 0.7s cubic-bezier(0.25, 0.1, 0.25, 1),
-    transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
+  transform: translateY(60px);
+  transition:
+    opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
 }
 
 .scroll-fade-up.animate-in {
@@ -262,10 +333,11 @@ a:hover {
 /* Scale in animation */
 .scroll-scale-in {
   opacity: 0;
-  transform: scale(0.95);
-  transition: 
-    opacity 0.6s cubic-bezier(0.25, 0.1, 0.25, 1),
-    transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform: scale(0.9);
+  transition:
+    opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
 }
 
 .scroll-scale-in.animate-in {
@@ -276,7 +348,8 @@ a:hover {
 /* Fade in only */
 .scroll-fade-in {
   opacity: 0;
-  transition: opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+  transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity;
 }
 
 .scroll-fade-in.animate-in {
@@ -286,10 +359,11 @@ a:hover {
 /* Slide from left */
 .scroll-slide-left {
   opacity: 0;
-  transform: translateX(-40px);
-  transition: 
-    opacity 0.7s cubic-bezier(0.25, 0.1, 0.25, 1),
-    transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
+  transform: translateX(-60px);
+  transition:
+    opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
 }
 
 .scroll-slide-left.animate-in {
@@ -300,10 +374,11 @@ a:hover {
 /* Slide from right */
 .scroll-slide-right {
   opacity: 0;
-  transform: translateX(40px);
-  transition: 
-    opacity 0.7s cubic-bezier(0.25, 0.1, 0.25, 1),
-    transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
+  transform: translateX(60px);
+  transition:
+    opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
 }
 
 .scroll-slide-right.animate-in {
@@ -311,44 +386,119 @@ a:hover {
   transform: translateX(0);
 }
 
-/* Staggered animation delays */
-.delay-100 { transition-delay: 100ms; }
-.delay-200 { transition-delay: 200ms; }
-.delay-300 { transition-delay: 300ms; }
-.delay-400 { transition-delay: 400ms; }
-.delay-500 { transition-delay: 500ms; }
-.delay-600 { transition-delay: 600ms; }
+/* Staggered animation delays - work for both forward and reverse */
+.delay-100 {
+  transition-delay: 100ms;
+}
+
+.delay-200 {
+  transition-delay: 200ms;
+}
+
+.delay-300 {
+  transition-delay: 300ms;
+}
+
+.delay-400 {
+  transition-delay: 400ms;
+}
+
+.delay-500 {
+  transition-delay: 500ms;
+}
+
+.delay-600 {
+  transition-delay: 600ms;
+}
 
 /* ==========================================
    UTILITY CLASSES
    ========================================== */
 
-.text-center { text-align: center; }
-.text-left { text-align: left; }
-.text-right { text-align: right; }
+.text-center {
+  text-align: center;
+}
 
-.mt-2 { margin-top: 0.5rem; }
-.mt-4 { margin-top: 1rem; }
-.mt-6 { margin-top: 1.5rem; }
-.mt-8 { margin-top: 2rem; }
+.text-left {
+  text-align: left;
+}
 
-.mb-2 { margin-bottom: 0.5rem; }
-.mb-4 { margin-bottom: 1rem; }
-.mb-6 { margin-bottom: 1.5rem; }
-.mb-8 { margin-bottom: 2rem; }
+.text-right {
+  text-align: right;
+}
 
-.flex { display: flex; }
-.flex-col { flex-direction: column; }
-.items-center { align-items: center; }
-.justify-center { justify-content: center; }
-.justify-between { justify-content: space-between; }
-.gap-2 { gap: 0.5rem; }
-.gap-4 { gap: 1rem; }
-.gap-6 { gap: 1.5rem; }
-.gap-8 { gap: 2rem; }
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.mt-6 {
+  margin-top: 1.5rem;
+}
+
+.mt-8 {
+  margin-top: 2rem;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.mb-6 {
+  margin-bottom: 1.5rem;
+}
+
+.mb-8 {
+  margin-bottom: 2rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.gap-2 {
+  gap: 0.5rem;
+}
+
+.gap-4 {
+  gap: 1rem;
+}
+
+.gap-6 {
+  gap: 1.5rem;
+}
+
+.gap-8 {
+  gap: 2rem;
+}
 
 /* --- Form Inputs - Apple Style --- */
-input, select, textarea {
+input,
+select,
+textarea {
   font-family: var(--font-family);
   font-size: 1rem;
   padding: 0.875rem 1rem;
@@ -360,12 +510,15 @@ input, select, textarea {
   outline: none;
 }
 
-input:focus, select:focus, textarea:focus {
+input:focus,
+select:focus,
+textarea:focus {
   border-color: var(--primary-color);
   box-shadow: 0 0 0 3px var(--primary-light);
 }
 
-input::placeholder, textarea::placeholder {
+input::placeholder,
+textarea::placeholder {
   color: var(--text-tertiary);
 }
 
@@ -411,6 +564,7 @@ img {
 
 /* Respect user motion preferences */
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
@@ -418,11 +572,11 @@ img {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  
+
   html {
     scroll-behavior: auto;
   }
-  
+
   .scroll-animate,
   .scroll-fade-up,
   .scroll-scale-in,

@@ -1,0 +1,177 @@
+/* Modern Button - UIverse inspired by gharsh11032000 */
+/* Combined with loading animation by mobinkakei */
+
+.modern-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 16px 36px;
+    border: 4px solid transparent;
+    font-size: 16px;
+    font-family: inherit;
+    background-color: transparent;
+    border-radius: 100px;
+    font-weight: 600;
+    color: #0071e3;
+    box-shadow: 0 0 0 2px #0071e3;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    min-width: 180px;
+}
+
+.modern-button.secondary {
+    color: #ffffff;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+}
+
+.modern-button.secondary .circle {
+    background-color: #ffffff;
+}
+
+.modern-button.secondary svg {
+    fill: #ffffff;
+}
+
+.modern-button.secondary:hover {
+    color: #1d1d1f;
+}
+
+.modern-button.secondary:hover svg {
+    fill: #1d1d1f;
+}
+
+.modern-button svg {
+    position: absolute;
+    width: 24px;
+    fill: #0071e3;
+    z-index: 9;
+    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.modern-button .arr-1 {
+    right: 16px;
+}
+
+.modern-button .arr-2 {
+    left: -25%;
+}
+
+.modern-button .circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    background-color: #0071e3;
+    border-radius: 50%;
+    opacity: 0;
+    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.modern-button .text {
+    position: relative;
+    z-index: 1;
+    transform: translateX(-12px);
+    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.modern-button:hover {
+    box-shadow: 0 0 0 12px transparent;
+    color: #ffffff;
+    border-radius: 12px;
+}
+
+.modern-button:hover .arr-1 {
+    right: -25%;
+}
+
+.modern-button:hover .arr-2 {
+    left: 16px;
+}
+
+.modern-button:hover .text {
+    transform: translateX(12px);
+}
+
+.modern-button:hover svg {
+    fill: #ffffff;
+}
+
+.modern-button:active {
+    scale: 0.95;
+    box-shadow: 0 0 0 4px #0071e3;
+}
+
+.modern-button:hover .circle {
+    width: 300px;
+    height: 300px;
+    opacity: 1;
+}
+
+.modern-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.modern-button:disabled:hover {
+    box-shadow: 0 0 0 2px #0071e3;
+    color: #0071e3;
+    border-radius: 100px;
+}
+
+.modern-button:disabled:hover .circle {
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+}
+
+.modern-button:disabled:hover .arr-1 {
+    right: 16px;
+}
+
+.modern-button:disabled:hover .arr-2 {
+    left: -25%;
+}
+
+.modern-button:disabled:hover .text {
+    transform: translateX(-12px);
+}
+
+/* Loading state */
+.modern-button.loading {
+    box-shadow: 0 0 0 2px #0071e3;
+    color: #0071e3;
+}
+
+.modern-button.loading .spinner {
+    position: relative;
+    width: 1.3rem;
+    height: 1.3rem;
+    fill: currentColor;
+    animation: button-spin 1s linear infinite;
+    margin-right: 0.5rem;
+}
+
+.modern-button.loading .text {
+    transform: translateX(0);
+}
+
+.modern-button.loading:hover .circle {
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+}
+
+@keyframes button-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}

@@ -1,0 +1,100 @@
+/* Word Slider - UIverse inspired by kennyotsu */
+
+.word-slider-container {
+    display: inline-block;
+}
+
+.word-slider {
+    color: rgba(255, 255, 255, 0.8);
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 1.25rem;
+    box-sizing: content-box;
+    height: 1.5em;
+    display: flex;
+    align-items: center;
+}
+
+.word-slider .static-text {
+    white-space: nowrap;
+}
+
+.word-slider .words {
+    overflow: hidden;
+    position: relative;
+    height: 1.5em;
+    margin-left: 0.35em;
+}
+
+.word-slider .words::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(transparent 10%,
+            transparent 30%,
+            transparent 70%,
+            transparent 90%);
+    z-index: 20;
+    pointer-events: none;
+}
+
+.word-slider .word {
+    display: block;
+    height: 100%;
+    color: #0071e3;
+    font-weight: 600;
+    animation: word-slide 8s infinite;
+}
+
+/* Animation for 4 words */
+@keyframes word-slide {
+
+    0%,
+    10% {
+        transform: translateY(0);
+    }
+
+    12.5%,
+    22.5% {
+        transform: translateY(-100%);
+    }
+
+    25%,
+    35% {
+        transform: translateY(-200%);
+    }
+
+    37.5%,
+    47.5% {
+        transform: translateY(-300%);
+    }
+
+    50%,
+    60% {
+        transform: translateY(-300%);
+    }
+
+    62.5%,
+    72.5% {
+        transform: translateY(-200%);
+    }
+
+    75%,
+    85% {
+        transform: translateY(-100%);
+    }
+
+    87.5%,
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* Large variant for hero sections */
+.word-slider.large .word-slider {
+    font-size: 1.5rem;
+}
+
+.word-slider.large .word-slider .words {
+    height: 1.6em;
+}

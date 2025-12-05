@@ -16,7 +16,8 @@ interface ScrollAnimationOptions {
 export function useScrollAnimation<T extends HTMLElement = HTMLDivElement>(
   options: ScrollAnimationOptions = {}
 ) {
-  const { threshold = 0.1, rootMargin = '0px 0px -50px 0px', triggerOnce = true } = options;
+  // triggerOnce defaults to FALSE for reversible animations
+  const { threshold = 0.1, rootMargin = '0px 0px -50px 0px', triggerOnce = false } = options;
   const ref = useRef<T>(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -32,6 +33,7 @@ export function useScrollAnimation<T extends HTMLElement = HTMLDivElement>(
             observer.unobserve(element);
           }
         } else if (!triggerOnce) {
+          // Reverse animation when element leaves viewport
           setIsVisible(false);
         }
       },
@@ -49,6 +51,7 @@ export function useScrollAnimation<T extends HTMLElement = HTMLDivElement>(
 /**
  * Hook variant that automatically adds animation classes.
  * Attach the returned ref to any element with scroll animation CSS classes.
+ * Animations are REVERSIBLE by default - they reverse when scrolling back up.
  */
 export function useScrollAnimationClass<T extends HTMLElement = HTMLDivElement>(
   animationClass: string = 'scroll-fade-up',
@@ -77,7 +80,8 @@ export function useScrollAnimationClass<T extends HTMLElement = HTMLDivElement>(
 }
 
 /**
- * Utility to set up scroll animations on multiple elements.
+ * Utility to set up REVERSIBLE scroll animations on multiple elements.
+ * Animations play forward when scrolling down and reverse when scrolling up.
  * Call this in a useEffect to animate elements that match the selector.
  */
 export function initScrollAnimations(
@@ -91,16 +95,56 @@ export function initScrollAnimations(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
+          // Element entering viewport - play animation forward
           entry.target.classList.add('animate-in');
+        } else {
+          // Element leaving viewport - reverse animation
+          entry.target.classList.remove('animate-in');
         }
       });
     },
-    { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+    { threshold: 0.15, rootMargin: '0px 0px -80px 0px' }
   );
 
   elements.forEach((el) => observer.observe(el));
 
   return () => observer.disconnect();
+}
+
+/**
+ * Creates a scroll-linked animation controller for Apple-style parallax effects.
+ * Tracks scroll position and provides normalized progress values for animations.
+ */
+export function useScrollProgress(elementRef: React.RefObject<HTMLElement>) {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const element = elementRef.current;
+    if (!element) return;
+
+    const handleScroll = () => {
+      const rect = element.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      // Calculate progress: 0 when element is below viewport, 1 when above
+      // Element enters at progress ~0.3, fully visible at 0.5, exits at ~0.7
+      const elementTop = rect.top;
+      const elementHeight = rect.height;
+
+      // Normalize: 0 = element just entering bottom, 1 = element just leaving top
+      const rawProgress = 1 - (elementTop + elementHeight) / (windowHeight + elementHeight);
+      const clampedProgress = Math.max(0, Math.min(1, rawProgress));
+
+      setProgress(clampedProgress);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial calculation
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [elementRef]);
+
+  return progress;
 }
 
 export default useScrollAnimation;
