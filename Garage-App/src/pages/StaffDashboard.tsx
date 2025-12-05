@@ -26,87 +26,224 @@ const StaffDashboard = () => {
     }
   }, [staffContext, bookingContext]);
 
+  const navItems = [
+    { id: "overview", label: "Overview", icon: "◉" },
+    { id: "customers", label: "Customer Records", icon: "👤" },
+    { id: "staff-scheduling", label: "Staff Scheduling", icon: "📅" },
+    { id: "appointments", label: "Appointments", icon: "🗓" },
+    { id: "inventory", label: "Inventory", icon: "📦" },
+    { id: "invoices", label: "Invoices & Payments", icon: "💳" },
+    { id: "compliance", label: "Compliance & Safety", icon: "✓" },
+  ];
+
   const renderContent = () => {
     switch (activeTab) {
       case "overview":
         return (
           <div>
-            <h2 style={{ marginBottom: "1.5rem", color: "var(--primary-color)" }}>Dashboard Overview</h2>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "1.5rem" }}>
-              <div className="glass-panel" style={{ padding: "1.5rem" }}>
-                <h3>Total Mechanics</h3>
-                <p style={{ fontSize: "2rem", fontWeight: "bold", color: "var(--accent-color)" }}>{mechanics.length}</p>
-              </div>
-              <div className="glass-panel" style={{ padding: "1.5rem" }}>
-                <h3>Pending Bookings</h3>
-                <p style={{ fontSize: "2rem", fontWeight: "bold", color: "var(--accent-color)" }}>
-                  {bookings.filter(b => b.status === "Pending").length}
-                </p>
-              </div>
-              <div className="glass-panel" style={{ padding: "1.5rem" }}>
-                <h3>Today's Appointments</h3>
-                <p style={{ fontSize: "2rem", fontWeight: "bold", color: "var(--accent-color)" }}>
-                  {bookings.filter(b => new Date(b.bookingDate).toDateString() === new Date().toDateString()).length}
-                </p>
-              </div>
+            <div style={{ marginBottom: "2rem" }}>
+              <h2 style={{
+                fontSize: "2rem",
+                fontWeight: 700,
+                color: "var(--text-primary)",
+                letterSpacing: "-0.02em",
+                marginBottom: "0.5rem",
+              }}>
+                Dashboard Overview
+              </h2>
+              <p style={{ color: "var(--text-secondary)" }}>
+                Welcome back. Here's what's happening today.
+              </p>
+            </div>
+            <div style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+              gap: "1.5rem"
+            }}>
+              {[
+                { label: "Total Mechanics", value: mechanics.length, color: "#0071e3", bg: "rgba(0, 113, 227, 0.08)" },
+                { label: "Pending Bookings", value: bookings.filter(b => b.status === "Pending").length, color: "#ff9500", bg: "rgba(255, 149, 0, 0.08)" },
+                { label: "Today's Appointments", value: bookings.filter(b => new Date(b.bookingDate).toDateString() === new Date().toDateString()).length, color: "#34c759", bg: "rgba(52, 199, 89, 0.08)" },
+              ].map((stat, idx) => (
+                <div
+                  key={idx}
+                  style={{
+                    background: "white",
+                    borderRadius: "var(--radius-xl)",
+                    padding: "2rem",
+                    border: "1px solid var(--border-color)",
+                    boxShadow: "var(--shadow-sm)",
+                    transition: "all 0.3s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = "translateY(-4px)";
+                    e.currentTarget.style.boxShadow = "var(--shadow-md)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = "translateY(0)";
+                    e.currentTarget.style.boxShadow = "var(--shadow-sm)";
+                  }}
+                >
+                  <div style={{
+                    width: "48px",
+                    height: "48px",
+                    borderRadius: "var(--radius-md)",
+                    background: stat.bg,
+                    marginBottom: "1.25rem",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}>
+                    <div style={{
+                      width: "12px",
+                      height: "12px",
+                      borderRadius: "50%",
+                      background: stat.color,
+                    }} />
+                  </div>
+                  <p style={{
+                    fontSize: "0.875rem",
+                    color: "var(--text-secondary)",
+                    marginBottom: "0.5rem",
+                    fontWeight: 500,
+                  }}>
+                    {stat.label}
+                  </p>
+                  <p style={{
+                    fontSize: "2.5rem",
+                    fontWeight: 700,
+                    color: "var(--text-primary)",
+                    letterSpacing: "-0.02em",
+                    lineHeight: 1,
+                  }}>
+                    {stat.value}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         );
       case "customers":
         return (
           <div>
-            <h2 style={{ marginBottom: "1.5rem", color: "var(--primary-color)" }}>Customer Records</h2>
-            <div className="glass-panel" style={{ padding: "1.5rem" }}>
+            <h2 style={{
+              fontSize: "2rem",
+              fontWeight: 700,
+              color: "var(--text-primary)",
+              letterSpacing: "-0.02em",
+              marginBottom: "1.5rem",
+            }}>
+              Customer Records
+            </h2>
+            <div style={{
+              background: "white",
+              borderRadius: "var(--radius-xl)",
+              padding: "1.5rem",
+              border: "1px solid var(--border-color)",
+              boxShadow: "var(--shadow-sm)",
+            }}>
               <CustomerList />
             </div>
           </div>
         );
       case "staff-scheduling":
         return (
-          <div className="glass-panel" style={{ padding: "1.5rem" }}>
+          <div style={{
+            background: "white",
+            borderRadius: "var(--radius-xl)",
+            padding: "1.5rem",
+            border: "1px solid var(--border-color)",
+            boxShadow: "var(--shadow-sm)",
+          }}>
             <StaffScheduling />
           </div>
         );
       case "appointments":
         return (
-          <div className="glass-panel" style={{ padding: "1.5rem" }}>
+          <div style={{
+            background: "white",
+            borderRadius: "var(--radius-xl)",
+            padding: "1.5rem",
+            border: "1px solid var(--border-color)",
+            boxShadow: "var(--shadow-sm)",
+          }}>
             <AppointmentScheduling />
           </div>
         );
       case "inventory":
         return (
           <div>
-            <h2 style={{ marginBottom: "1.5rem", color: "var(--primary-color)" }}>Inventory Management</h2>
-            <div className="glass-panel" style={{ padding: "1.5rem" }}>
+            <h2 style={{
+              fontSize: "2rem",
+              fontWeight: 700,
+              color: "var(--text-primary)",
+              letterSpacing: "-0.02em",
+              marginBottom: "1.5rem",
+            }}>
+              Inventory Management
+            </h2>
+            <div style={{
+              background: "white",
+              borderRadius: "var(--radius-xl)",
+              padding: "1.5rem",
+              border: "1px solid var(--border-color)",
+              boxShadow: "var(--shadow-sm)",
+            }}>
               <InventoryList />
             </div>
           </div>
         );
       case "invoices":
         return (
-          <div className="glass-panel" style={{ padding: "1.5rem" }}>
+          <div style={{
+            background: "white",
+            borderRadius: "var(--radius-xl)",
+            padding: "1.5rem",
+            border: "1px solid var(--border-color)",
+            boxShadow: "var(--shadow-sm)",
+          }}>
             <Invoices />
           </div>
         );
       case "compliance":
         return (
           <div>
-            <h2 style={{ marginBottom: "1.5rem", color: "var(--primary-color)" }}>Compliance & Safety</h2>
-            <div className="glass-panel" style={{ padding: "0", overflow: "hidden" }}>
-              <div style={{ background: "var(--primary-color)", padding: "1rem", color: "white", fontWeight: "bold" }}>
+            <h2 style={{
+              fontSize: "2rem",
+              fontWeight: 700,
+              color: "var(--text-primary)",
+              letterSpacing: "-0.02em",
+              marginBottom: "1.5rem",
+            }}>
+              Compliance & Safety
+            </h2>
+            <div style={{
+              background: "white",
+              borderRadius: "var(--radius-xl)",
+              overflow: "hidden",
+              border: "1px solid var(--border-color)",
+              boxShadow: "var(--shadow-sm)",
+            }}>
+              <div style={{
+                background: "linear-gradient(135deg, var(--primary-color) 0%, #40a9ff 100%)",
+                padding: "1.25rem 1.5rem",
+                color: "white",
+                fontWeight: 600,
+                fontSize: "1rem",
+              }}>
                 Daily Safety Checklist
               </div>
               <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
                 {["Daily Safety Inspection", "Equipment Calibration Check", "Waste Disposal Log", "Fire Safety Audit", "Staff PPE Check"].map((item, idx) => (
                   <li key={idx} style={{
-                    padding: "1.5rem",
-                    borderBottom: "1px solid #f1f5f9",
+                    padding: "1.25rem 1.5rem",
+                    borderBottom: idx < 4 ? "1px solid var(--border-color)" : "none",
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
                     transition: "background 0.2s"
                   }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = "#f8fafc"}
+                    onMouseEnter={(e) => e.currentTarget.style.background = "#fafafa"}
                     onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}
                   >
                     <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
@@ -114,14 +251,24 @@ const StaffDashboard = () => {
                         width: "24px",
                         height: "24px",
                         borderRadius: "50%",
-                        border: "2px solid #cbd5e1",
+                        border: "2px solid var(--border-color-strong)",
                         display: "flex",
                         alignItems: "center",
-                        justifyContent: "center"
+                        justifyContent: "center",
+                        transition: "all 0.2s",
+                        cursor: "pointer",
                       }}></div>
-                      <span style={{ fontSize: "1.1rem" }}>{item}</span>
+                      <span style={{ fontSize: "1rem", color: "var(--text-primary)" }}>{item}</span>
                     </div>
-                    <button className="btn btn-secondary" style={{ fontSize: "0.875rem" }}>Mark Complete</button>
+                    <button
+                      className="btn btn-secondary"
+                      style={{
+                        fontSize: "0.875rem",
+                        padding: "0.625rem 1rem",
+                      }}
+                    >
+                      Mark Complete
+                    </button>
                   </li>
                 ))}
               </ul>
@@ -134,78 +281,96 @@ const StaffDashboard = () => {
   };
 
   return (
-    <div style={{ display: "flex", minHeight: "100vh", background: "var(--background-color)" }}>
+    <div style={{ display: "flex", minHeight: "100vh", background: "#f5f5f7" }}>
       {/* Sidebar */}
       <div style={{
-        width: "250px",
+        width: "280px",
         background: "white",
-        borderRight: "1px solid #e2e8f0",
+        borderRight: "1px solid var(--border-color)",
         padding: "2rem 1rem",
         display: "flex",
-        flexDirection: "column"
+        flexDirection: "column",
+        position: "sticky",
+        top: 0,
+        height: "100vh",
+        overflowY: "auto",
       }}>
-        <h2 style={{ marginBottom: "2rem", color: "var(--primary-color)", paddingLeft: "1rem" }}>Staff Portal</h2>
-        <nav style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-          {[
-            { id: "overview", label: "Overview" },
-            { id: "customers", label: "Customer Records" },
-            { id: "staff-scheduling", label: "Staff Scheduling" },
-            { id: "appointments", label: "Appointments" },
-            { id: "inventory", label: "Inventory Management" },
-            { id: "invoices", label: "Invoices & Payments" },
-            { id: "compliance", label: "Compliance & Safety" },
-          ].map((item) => (
+        <div style={{ padding: "0 1rem", marginBottom: "2.5rem" }}>
+          <h2 style={{
+            color: "var(--text-primary)",
+            fontSize: "1.25rem",
+            fontWeight: 700,
+            letterSpacing: "-0.02em",
+          }}>
+            Staff Portal
+          </h2>
+        </div>
+
+        <nav style={{ display: "flex", flexDirection: "column", gap: "0.375rem", flex: 1 }}>
+          {navItems.map((item) => (
             <button
               key={item.id}
               onClick={() => setActiveTab(item.id)}
               style={{
                 textAlign: "left",
-                padding: "1rem",
-                borderRadius: "0.5rem",
-                background: activeTab === item.id ? "var(--primary-color)" : "transparent",
+                padding: "0.875rem 1rem",
+                borderRadius: "var(--radius-md)",
+                background: activeTab === item.id
+                  ? "linear-gradient(135deg, var(--primary-color) 0%, #40a9ff 100%)"
+                  : "transparent",
                 color: activeTab === item.id ? "white" : "var(--text-secondary)",
                 border: "none",
-                fontWeight: 500,
+                fontWeight: activeTab === item.id ? 600 : 500,
                 cursor: "pointer",
                 transition: "all 0.2s ease",
-                transform: "translateX(0)"
+                display: "flex",
+                alignItems: "center",
+                gap: "0.75rem",
+                fontSize: "0.9375rem",
               }}
               onMouseEnter={(e) => {
                 if (activeTab !== item.id) {
-                  e.currentTarget.style.background = "#f1f5f9";
-                  e.currentTarget.style.transform = "translateX(5px)";
+                  e.currentTarget.style.background = "#f5f5f7";
+                  e.currentTarget.style.color = "var(--text-primary)";
                 }
               }}
               onMouseLeave={(e) => {
                 if (activeTab !== item.id) {
                   e.currentTarget.style.background = "transparent";
+                  e.currentTarget.style.color = "var(--text-secondary)";
                 }
-                e.currentTarget.style.transform = "translateX(0)";
               }}
             >
+              <span style={{ opacity: activeTab === item.id ? 1 : 0.7 }}>{item.icon}</span>
               {item.label}
             </button>
           ))}
         </nav>
-        <div style={{ marginTop: "auto" }}>
+
+        <div style={{ marginTop: "auto", padding: "1rem 0" }}>
           <button
-            className="btn btn-outline"
             style={{
               width: "100%",
+              padding: "0.875rem 1rem",
+              borderRadius: "var(--radius-md)",
+              background: "transparent",
               color: "var(--error-color)",
-              borderColor: "var(--error-color)",
-              transition: "all 0.2s ease"
+              border: "1px solid rgba(255, 59, 48, 0.3)",
+              fontWeight: 500,
+              cursor: "pointer",
+              transition: "all 0.2s ease",
+              fontSize: "0.9375rem",
             }}
             onClick={() => navigate("/")}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = "var(--error-color)";
               e.currentTarget.style.color = "white";
-              e.currentTarget.style.transform = "scale(1.02)";
+              e.currentTarget.style.borderColor = "var(--error-color)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.background = "transparent";
               e.currentTarget.style.color = "var(--error-color)";
-              e.currentTarget.style.transform = "scale(1)";
+              e.currentTarget.style.borderColor = "rgba(255, 59, 48, 0.3)";
             }}
           >
             Logout
@@ -214,7 +379,7 @@ const StaffDashboard = () => {
       </div>
 
       {/* Main Content */}
-      <div style={{ flex: 1, padding: "2rem", overflowY: "auto" }}>
+      <div style={{ flex: 1, padding: "2.5rem", overflowY: "auto" }}>
         {renderContent()}
       </div>
     </div>

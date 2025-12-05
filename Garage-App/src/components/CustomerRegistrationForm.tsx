@@ -88,10 +88,77 @@ const CustomerRegistrationForm = () => {
     }
   };
 
+  const inputStyle: React.CSSProperties = {
+    width: "100%",
+    padding: "0.875rem 1rem",
+    borderRadius: "var(--radius-md)",
+    border: "1px solid var(--border-color-strong)",
+    background: "white",
+    fontSize: "1rem",
+    transition: "all 0.2s",
+    outline: "none",
+  };
+
+  const labelStyle: React.CSSProperties = {
+    display: "block",
+    marginBottom: "0.5rem",
+    fontSize: "0.875rem",
+    fontWeight: 500,
+    color: "var(--text-primary)",
+  };
+
   return (
-    <div className="page-container" style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "80vh" }}>
-      <div className="glass-panel" style={{ width: "100%", maxWidth: "500px", padding: "2.5rem" }}>
-        <h2 style={{ marginBottom: "1.5rem", color: "var(--primary-color)", textAlign: "center" }}>Customer Registration</h2>
+    <div
+      className="page-container"
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
+        background: "linear-gradient(180deg, #fbfbfd 0%, #f5f5f7 100%)",
+      }}
+    >
+      <div style={{
+        width: "100%",
+        maxWidth: "520px",
+        background: "white",
+        borderRadius: "var(--radius-2xl)",
+        padding: "2.5rem",
+        border: "1px solid var(--border-color)",
+        boxShadow: "var(--shadow-lg)",
+      }}>
+        <div style={{ textAlign: "center", marginBottom: "2rem" }}>
+          <div style={{
+            width: "64px",
+            height: "64px",
+            background: "linear-gradient(135deg, var(--primary-color) 0%, #40a9ff 100%)",
+            borderRadius: "var(--radius-lg)",
+            margin: "0 auto 1.5rem",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            boxShadow: "0 8px 24px rgba(0, 113, 227, 0.3)",
+          }}>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="8.5" cy="7" r="4" />
+              <line x1="20" y1="8" x2="20" y2="14" />
+              <line x1="23" y1="11" x2="17" y2="11" />
+            </svg>
+          </div>
+          <h2 style={{
+            color: "var(--text-primary)",
+            fontSize: "1.75rem",
+            fontWeight: 700,
+            letterSpacing: "-0.02em",
+            marginBottom: "0.5rem",
+          }}>
+            Customer Registration
+          </h2>
+          <p style={{ color: "var(--text-secondary)", fontSize: "1rem" }}>
+            Create your account to book appointments
+          </p>
+        </div>
 
         {!success ? (
           <form
@@ -100,91 +167,182 @@ const CustomerRegistrationForm = () => {
           >
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
               <div>
-                <label htmlFor="firstName" style={{ display: "block", marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "500" }}>First Name *</label>
+                <label htmlFor="firstName" style={labelStyle}>First Name *</label>
                 <input
                   id="firstName"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   placeholder="John"
-                  style={{ width: "100%", padding: "0.75rem", borderRadius: "0.5rem", border: "1px solid #cbd5e1", background: "rgba(255,255,255,0.8)" }}
+                  style={inputStyle}
+                  onFocus={(e) => {
+                    e.target.style.borderColor = "var(--primary-color)";
+                    e.target.style.boxShadow = "0 0 0 3px var(--primary-light)";
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = "var(--border-color-strong)";
+                    e.target.style.boxShadow = "none";
+                  }}
                 />
               </div>
               <div>
-                <label htmlFor="lastName" style={{ display: "block", marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "500" }}>Last Name</label>
+                <label htmlFor="lastName" style={labelStyle}>Last Name</label>
                 <input
                   id="lastName"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                   placeholder="Doe"
-                  style={{ width: "100%", padding: "0.75rem", borderRadius: "0.5rem", border: "1px solid #cbd5e1", background: "rgba(255,255,255,0.8)" }}
+                  style={inputStyle}
+                  onFocus={(e) => {
+                    e.target.style.borderColor = "var(--primary-color)";
+                    e.target.style.boxShadow = "0 0 0 3px var(--primary-light)";
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = "var(--border-color-strong)";
+                    e.target.style.boxShadow = "none";
+                  }}
                 />
               </div>
             </div>
 
             <div>
-              <label htmlFor="email" style={{ display: "block", marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "500" }}>Email *</label>
+              <label htmlFor="email" style={labelStyle}>Email *</label>
               <input
                 id="email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="john.doe@example.com"
-                style={{ width: "100%", padding: "0.75rem", borderRadius: "0.5rem", border: "1px solid #cbd5e1", background: "rgba(255,255,255,0.8)" }}
+                style={inputStyle}
+                onFocus={(e) => {
+                  e.target.style.borderColor = "var(--primary-color)";
+                  e.target.style.boxShadow = "0 0 0 3px var(--primary-light)";
+                }}
+                onBlur={(e) => {
+                  e.target.style.borderColor = "var(--border-color-strong)";
+                  e.target.style.boxShadow = "none";
+                }}
               />
             </div>
 
             <div>
-              <label htmlFor="phone" style={{ display: "block", marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "500" }}>Phone</label>
+              <label htmlFor="phone" style={labelStyle}>Phone</label>
               <input
                 id="phone"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="+1 (555) 000-0000"
-                style={{ width: "100%", padding: "0.75rem", borderRadius: "0.5rem", border: "1px solid #cbd5e1", background: "rgba(255,255,255,0.8)" }}
+                style={inputStyle}
+                onFocus={(e) => {
+                  e.target.style.borderColor = "var(--primary-color)";
+                  e.target.style.boxShadow = "0 0 0 3px var(--primary-light)";
+                }}
+                onBlur={(e) => {
+                  e.target.style.borderColor = "var(--border-color-strong)";
+                  e.target.style.boxShadow = "none";
+                }}
               />
             </div>
 
             <div>
-              <label htmlFor="dateOfBirth" style={{ display: "block", marginBottom: "0.5rem", fontSize: "0.9rem", fontWeight: "500" }}>Date of Birth</label>
+              <label htmlFor="dateOfBirth" style={labelStyle}>Date of Birth</label>
               <input
                 id="dateOfBirth"
                 type="date"
                 value={dateOfBirth}
                 onChange={(e) => setDateOfBirth(e.target.value)}
                 max={new Date().toISOString().split("T")[0]} // Prevent future dates in picker
-                style={{ width: "100%", padding: "0.75rem", borderRadius: "0.5rem", border: "1px solid #cbd5e1", background: "rgba(255,255,255,0.8)" }}
+                style={inputStyle}
+                onFocus={(e) => {
+                  e.target.style.borderColor = "var(--primary-color)";
+                  e.target.style.boxShadow = "0 0 0 3px var(--primary-light)";
+                }}
+                onBlur={(e) => {
+                  e.target.style.borderColor = "var(--border-color-strong)";
+                  e.target.style.boxShadow = "none";
+                }}
               />
             </div>
 
-            <button type="submit" className="btn btn-primary" style={{ marginTop: "1rem", width: "100%" }}>
+            <button
+              type="submit"
+              className="btn btn-primary"
+              style={{ marginTop: "0.5rem", width: "100%", padding: "1rem" }}
+            >
               Register Customer
             </button>
 
             <button
               type="button"
               onClick={() => navigate("/customer")}
-              style={{ background: "none", border: "none", color: "var(--primary-color)", cursor: "pointer", textDecoration: "underline", fontSize: "0.9rem", alignSelf: "center" }}
+              style={{
+                background: "none",
+                border: "none",
+                color: "var(--text-secondary)",
+                cursor: "pointer",
+                fontSize: "0.9375rem",
+                alignSelf: "center",
+                transition: "color 0.2s",
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.color = "var(--primary-color)"}
+              onMouseLeave={(e) => e.currentTarget.style.color = "var(--text-secondary)"}
             >
-              Back to Portal
+              ← Back to Portal
             </button>
           </form>
         ) : (
           <div style={{ textAlign: "center" }}>
-            <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>🎉</div>
-            <h3 style={{ color: "var(--success-color)", marginBottom: "1rem" }}>Registration Successful!</h3>
-            <p style={{ marginBottom: "1.5rem", color: "var(--text-secondary)" }}>
-              Your Customer ID is: <strong>{customerId}</strong>
+            <div style={{
+              width: "80px",
+              height: "80px",
+              background: "linear-gradient(135deg, var(--success-color) 0%, #2dd4bf 100%)",
+              borderRadius: "50%",
+              margin: "0 auto 1.5rem",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              boxShadow: "0 8px 24px rgba(52, 199, 89, 0.3)",
+            }}>
+              <span style={{ fontSize: "2rem", color: "white" }}>✓</span>
+            </div>
+            <h3 style={{
+              color: "var(--text-primary)",
+              marginBottom: "0.75rem",
+              fontSize: "1.5rem",
+              fontWeight: 600,
+            }}>
+              Registration Successful!
+            </h3>
+            <p style={{
+              marginBottom: "0.5rem",
+              color: "var(--text-secondary)",
+              fontSize: "1rem",
+            }}>
+              Your Customer ID is:
+            </p>
+            <p style={{
+              background: "#f5f5f7",
+              padding: "0.75rem 1rem",
+              borderRadius: "var(--radius-md)",
+              fontFamily: "monospace",
+              fontSize: "1rem",
+              color: "var(--primary-color)",
+              fontWeight: 600,
+              marginBottom: "2rem",
+            }}>
+              {customerId}
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
               <button
                 className="btn btn-primary"
                 onClick={() => navigate(`/customer/${customerId}/booking`)}
+                style={{ width: "100%", padding: "1rem" }}
               >
                 Book a Service Now
               </button>
               <button
                 className="btn btn-secondary"
                 onClick={() => navigate("/customer")}
+                style={{ width: "100%", padding: "1rem" }}
               >
                 Back to Portal
               </button>
@@ -194,7 +352,16 @@ const CustomerRegistrationForm = () => {
 
         {/* ✅ Feedback messages */}
         {error && (
-          <div style={{ marginTop: "1rem", padding: "0.75rem", background: "rgba(239, 68, 68, 0.1)", border: "1px solid var(--error-color)", borderRadius: "0.5rem", color: "var(--error-color)", textAlign: "center" }}>
+          <div style={{
+            marginTop: "1.5rem",
+            padding: "0.875rem 1rem",
+            background: "rgba(255, 59, 48, 0.08)",
+            border: "1px solid rgba(255, 59, 48, 0.2)",
+            borderRadius: "var(--radius-md)",
+            color: "var(--error-color)",
+            textAlign: "center",
+            fontSize: "0.9375rem",
+          }}>
             {error}
           </div>
         )}
