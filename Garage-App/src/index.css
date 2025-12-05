@@ -587,3 +587,54 @@ img {
     transform: none;
   }
 }
+
+/* ==========================================
+   MAP FLOATING CONTACT CARD
+   ========================================== */
+
+.map-contact-card {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 320px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+/* Responsive styles for portrait/mobile screens */
+@media (max-width: 768px), (orientation: portrait) {
+  .map-contact-card {
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+    max-width: none;
+    padding: 1rem 1.25rem;
+    border-radius: 14px;
+  }
+
+  .map-contact-card h3 {
+    font-size: 1rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .map-contact-card .contact-details {
+    gap: 0.35rem !important;
+    font-size: 0.8125rem !important;
+  }
+
+  .map-contact-card .contact-details > div {
+    gap: 0.5rem !important;
+  }
+
+  .map-contact-card .contact-details span:first-child {
+    font-size: 1rem !important;
+  }
+
+  .map-contact-card .btn-wrapper {
+    margin-top: 0.75rem !important;
+  }
+}

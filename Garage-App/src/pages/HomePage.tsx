@@ -697,18 +697,7 @@ const HomePage = () => {
             </MapContainer>
 
             {/* Floating contact card */}
-            <div style={{
-              position: "absolute",
-              bottom: "2rem",
-              left: "2rem",
-              background: "rgba(255,255,255,0.95)",
-              backdropFilter: "blur(20px)",
-              borderRadius: "20px",
-              padding: "2rem",
-              maxWidth: "320px",
-              boxShadow: "0 20px 40px rgba(0,0,0,0.2)",
-              zIndex: 1000,
-            }}>
+            <div className="map-contact-card">
               <h3 style={{
                 fontSize: "1.25rem",
                 fontWeight: 600,
@@ -717,7 +706,7 @@ const HomePage = () => {
               }}>
                 Maple Street Auto Repairs
               </h3>
-              <div style={{
+              <div className="contact-details" style={{
                 display: "flex",
                 flexDirection: "column",
                 gap: "0.75rem",
@@ -737,7 +726,7 @@ const HomePage = () => {
                   <span>Mon-Fri: 8am - 6pm</span>
                 </div>
               </div>
-              <div style={{ marginTop: "1.5rem" }}>
+              <div className="btn-wrapper" style={{ marginTop: "1.5rem" }}>
                 <ModernButton onClick={() => navigate("/customer")}>
                   Book Appointment
                 </ModernButton>
