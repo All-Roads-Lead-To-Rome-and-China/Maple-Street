@@ -85,7 +85,7 @@ export function useScrollAnimationClass<T extends HTMLElement = HTMLDivElement>(
  * Call this in a useEffect to animate elements that match the selector.
  */
 export function initScrollAnimations(
-  containerRef?: React.RefObject<HTMLElement>,
+  containerRef?: React.RefObject<HTMLElement | null>,
   selector: string = '.scroll-animate, .scroll-fade-up, .scroll-scale-in, .scroll-fade-in, .scroll-slide-left, .scroll-slide-right'
 ) {
   const container = containerRef?.current || document;

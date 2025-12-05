@@ -6,18 +6,18 @@ class MockIntersectionObserver implements IntersectionObserver {
     readonly rootMargin: string = '';
     readonly thresholds: ReadonlyArray<number> = [];
 
-    constructor(callback: IntersectionObserverCallback, options?: IntersectionObserverInit) {
+    constructor(_callback: IntersectionObserverCallback, _options?: IntersectionObserverInit) {
         // Store callback for potential use in tests
     }
 
-    observe(target: Element): void {
+    observe(_target: Element): void {
         // Immediately trigger the callback to simulate element being visible
         // This makes scroll animations work in tests
     }
 
-    unobserve(target: Element): void { }
+    unobserve(_target: Element): void { }
     disconnect(): void { }
     takeRecords(): IntersectionObserverEntry[] { return []; }
 }
 
-global.IntersectionObserver = MockIntersectionObserver;
+(globalThis as unknown as { IntersectionObserver: typeof IntersectionObserver }).IntersectionObserver = MockIntersectionObserver;
