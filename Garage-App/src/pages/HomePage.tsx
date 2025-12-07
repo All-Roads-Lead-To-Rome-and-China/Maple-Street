@@ -6,6 +6,7 @@ import L from "leaflet";
 import { initScrollAnimations } from "../hooks/useScrollAnimation";
 import ModernButton from "../components/ModernButton";
 import WordSlider from "../components/WordSlider";
+import SocialMediaLinks from "../components/SocialMediaLinks";
 
 // Images
 import heroImg from "../assets/hero_garage.png";
@@ -748,8 +749,8 @@ const HomePage = () => {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-              gap: "4rem",
+              gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+              gap: "2rem",
               marginBottom: "4rem",
             }}
           >
@@ -867,6 +868,21 @@ const HomePage = () => {
                   </a>
                 </li>
               </ul>
+            </div>
+
+            {/* Follow Us - Social Media */}
+            <div>
+              <h4 style={{
+                fontSize: "0.8125rem",
+                marginBottom: "1.25rem",
+                color: "rgba(255,255,255,0.5)",
+                fontWeight: 600,
+                textTransform: "uppercase",
+                letterSpacing: "0.1em",
+              }}>
+                Follow Us
+              </h4>
+              <SocialMediaLinks />
             </div>
           </div>
 
