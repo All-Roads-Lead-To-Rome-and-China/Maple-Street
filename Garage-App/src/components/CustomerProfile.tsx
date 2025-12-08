@@ -12,6 +12,7 @@ const CustomerProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [showIdHelp, setShowIdHelp] = useState(false);
 
   // Editable fields
   const [firstName, setFirstName] = useState("");
@@ -64,14 +65,14 @@ const CustomerProfile = () => {
       setCustomer((prev) =>
         prev
           ? {
-              ...prev,
-              firstName,
-              lastName,
-              email,
-              phone,
-              dateOfBirth,
-              isActive: prev.isActive,
-            }
+            ...prev,
+            firstName,
+            lastName,
+            email,
+            phone,
+            dateOfBirth,
+            isActive: prev.isActive,
+          }
           : prev
       );
     } catch (err) {
@@ -128,6 +129,43 @@ const CustomerProfile = () => {
             <label style={{ fontSize: "0.9rem", fontWeight: "500" }}>
               Enter your Customer ID to view your profile:
             </label>
+            <button
+              type="button"
+              onClick={() => setShowIdHelp(!showIdHelp)}
+              style={{
+                background: "none",
+                border: "none",
+                color: "var(--primary-color)",
+                cursor: "pointer",
+                fontSize: "0.85rem",
+                padding: "0",
+                marginTop: "0.5rem",
+                textDecoration: "underline",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.25rem",
+              }}
+            >
+              Cannot find your ID? {showIdHelp ? "▲" : "▼"}
+            </button>
+            {showIdHelp && (
+              <p
+                style={{
+                  fontSize: "0.85rem",
+                  color: "var(--text-secondary)",
+                  margin: "0.5rem 0 0 0",
+                  lineHeight: "1.4",
+                  padding: "0.75rem",
+                  background: "rgba(59, 130, 246, 0.05)",
+                  borderRadius: "0.5rem",
+                  border: "1px solid rgba(59, 130, 246, 0.1)",
+                }}
+              >
+                Your Customer ID can be found in the first registration email you
+                received from us. If you cannot find it, please give us a call and
+                we'll be happy to help.
+              </p>
+            )}
             <div style={{ display: "flex", gap: "1rem" }}>
               <input
                 value={customerId}
